@@ -1,6 +1,13 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
 import Navbar from "../components/Navbar.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import type { MarkdownInstance } from "astro";
+import type { Project } from "../models/Project";
+
+const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
+  eager: true,
+});
 ---
 
 <RootLayout pageTitle="PMK Development">
@@ -21,4 +28,15 @@ import Navbar from "../components/Navbar.astro";
     </div>
   </div>
   <Navbar />
+  <div class="grid grid-cols-3 gap-2.5 mx-auto w-[75%]">
+    {
+      Object.values(modules)
+        .sort((a, b) => a.frontmatter.order - b.frontmatter.order)
+        .map((m) => (
+          <ProjectCard {...m.frontmatter}>
+            <m.Content />
+          </ProjectCard>
+        ))
+    }
+  </div>
 </RootLayout>

@@ -1,0 +1,39 @@
+---
+import type { Project } from "../models/Project";
+import TRArrow from "./svgs/TRArrow.astro";
+
+type Props = Project;
+
+const { name, url, stack } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  class={`
+    group relative flex flex-col
+    w-full gap-3 p-5 rounded-xl
+    outline-2 outline-accent/50
+    hover:outline-accent hover:shadow-lg hover:shadow-accent
+    hover:-translate-y-1
+    bg-white text-accent
+    transition-all
+  `}
+>
+  <TRArrow
+    classes={`
+      absolute top-5 right-5
+      size-5
+      text-accent
+      group-hover:-translate-y-1 group-hover:translate-x-1
+      transition-all duration-300
+    `}
+  />
+  <h3 class="font-bold text-2xl transition-all duration-300">{name}</h3>
+  <div class="font-medium">
+    <slot />
+  </div>
+  <div class="border-t-2 border-accent p-1 transition-all duration-300">
+    {stack?.join(", ")}
+  </div>
+</a>
