@@ -27,14 +27,21 @@ const socialLinks = [
 ];
 ---
 
-<nav class="sticky top-0 w-vw bg-primary">
-  <div class="mx-auto flex w-[75%] bg-secondary rounded-4xl items-center p-5">
+<nav class="sticky top-0 w-vw bg-transparent p-2">
+  <div
+    class="mx-auto flex w-[75%] outline-2 outline-primary bg-secondary rounded-4xl items-center py-3 px-10"
+  >
     <div class="grow">
-      <ul class="flex gap-5">
+      <ul class="flex gap-2">
         {
           navLinks.map((link) => (
             <li>
-              <a href={link.href}>{link.label}</a>
+              <a
+                class="block text-accent font-bold py-2 px-4 hover:-translate-y-1 duration-300 rounded-full transition"
+                href={link.href}
+              >
+                {link.label}
+              </a>
             </li>
           ))
         }
