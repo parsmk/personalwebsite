@@ -28,8 +28,8 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
     <Navbar />
   </div>
-  <div class="flex h-[80vh] bg-accent">
-    <div class="grid grid-cols-3 gap-2.5 mx-auto my-auto w-[75%]">
+  <div class="flex min-h-[80vh] bg-accent">
+    <div class="grid sm:grid-cols-3 gap-5 mx-auto my-auto w-[75%]">
       {
         Object.values(modules)
           .sort((a, b) => a.frontmatter.order - b.frontmatter.order)

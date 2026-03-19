@@ -10,13 +10,21 @@ import DjangoIcon from "../components/svgs/DjangoIcon.astro";
 import TSIcon from "../components/svgs/TSIcon.astro";
 
 export const techStackMap: Record<string, TechStack> = {
-  Typescript: { Icon: TSIcon, name: "Typescript" },
-  ReactJS: { Icon: ReactIcon, name: "ReactJS" },
-  NextJS: { Icon: NextIcon, name: "NextJS" },
-  ExpressJS: { Icon: ExpressIcon, name: "ExpressJS" },
-  TailwindCSS: { Icon: TailwindIcon, name: "TailwindCSS" },
-  "tanstack/react-query": { Icon: ReactQueryIcon, name: "TanStack Query" },
-  PostgreSQL: { Icon: PostgreIcon, name: "PostgreSQL" },
-  Python: { Icon: PythonIcon, name: "Python" },
-  "Django REST Framework": { Icon: DjangoIcon, name: "Django REST Framework" },
+  Typescript: { Icon: TSIcon, name: "Typescript", color: "#3178C6" },
+  ReactJS: { Icon: ReactIcon, name: "ReactJS", color: "#61DAFB" },
+  NextJS: { Icon: NextIcon, name: "NextJS", color: "#000000" },
+  ExpressJS: { Icon: ExpressIcon, name: "ExpressJS", color: "#000000" },
+  TailwindCSS: { Icon: TailwindIcon, name: "TailwindCSS", color: "#06B6D4" },
+  "tanstack/react-query": {
+    Icon: ReactQueryIcon,
+    name: "TanStack Query",
+    color: "#FF4154",
+  },
+  PostgreSQL: { Icon: PostgreIcon, name: "PostgreSQL", color: "#4169E1" },
+  Python: { Icon: PythonIcon, name: "Python", color: "#3776AB" },
+  "Django REST Framework": {
+    Icon: DjangoIcon,
+    name: "Django REST Framework",
+    color: "#092E20",
+  },
 };
