@@ -11,8 +11,8 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 ---
 
 <RootLayout pageTitle="PMK Development">
-  <div class="flex items-center justify-center h-screen">
-    <div class="flex flex-row gap-2">
+  <div class="flex flex-col h-screen">
+    <div class="flex flex-row items-center justify-center grow gap-2">
       <img src="" alt="bg-placeholder" class="absolute inset-0 -z-1" />
       <div
         class="flex flex-col justify-center items-end rounded-tl-full rounded-bl-full bg-secondary/50 size-100 border-r-2 border-r-foreground"
@@ -26,17 +26,19 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
       </div>
       <img class="h-[80%] outline-1" src="" alt="placeholder" />
     </div>
+    <Navbar />
   </div>
-  <Navbar />
-  <div class="grid grid-cols-3 gap-2.5 mx-auto w-[75%]">
-    {
-      Object.values(modules)
-        .sort((a, b) => a.frontmatter.order - b.frontmatter.order)
-        .map((m) => (
-          <ProjectCard {...m.frontmatter}>
-            <m.Content />
-          </ProjectCard>
-        ))
-    }
+  <div class="flex h-[80vh] bg-accent">
+    <div class="grid grid-cols-3 gap-2.5 mx-auto my-auto w-[75%]">
+      {
+        Object.values(modules)
+          .sort((a, b) => a.frontmatter.order - b.frontmatter.order)
+          .map((m) => (
+            <ProjectCard {...m.frontmatter}>
+              <m.Content />
+            </ProjectCard>
+          ))
+      }
+    </div>
   </div>
 </RootLayout>
