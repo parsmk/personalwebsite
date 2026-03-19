@@ -1,5 +1,3 @@
-import type { TechStack } from "./TechStack";
-
 export type Project = {
   name: string;
   url: string;
