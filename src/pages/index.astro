@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import type { MarkdownInstance } from "astro";
 import type { Project } from "../models/Project";
+import EmailForm from "../components/EmailForm.astro";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -26,8 +27,8 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
       </div>
       <img class="h-[80%] outline-1" src="" alt="placeholder" />
     </div>
-    <Navbar />
   </div>
+  <Navbar />
   <div class="flex min-h-[80vh] bg-accent">
     <div class="grid sm:grid-cols-3 gap-5 mx-auto my-auto w-[75%]">
       {
