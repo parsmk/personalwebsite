@@ -1,6 +1,7 @@
 ---
 import LinkedinSVG from "./svgs/LinkedinIcon.astro";
 import GithubSVG from "./svgs/GithubIcon.astro";
+import EmailIcon from "./svgs/EmailIcon.astro";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -10,7 +11,8 @@ const navLinks = [
 const socialLinks = [
   {
     href: "/contact",
-    label: "Contact",
+    Icon: EmailIcon,
+    iconClass: "size-10",
   },
   {
     href: "https://github.com/parsmk",
@@ -25,32 +27,32 @@ const socialLinks = [
 ];
 ---
 
-<nav class="flex sticky top-0 w-vw h-20 bg-primary">
-  <div class="grow">
-    <ul class="flex gap-2">
-      {
-        navLinks.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-  <div>
-    <ul class="flex gap-2">
-      {
-        socialLinks.map((link) => {
-          const Icon = link.Icon;
-          return (
+<nav class="sticky top-0 w-vw bg-primary">
+  <div class="mx-auto flex w-[75%] bg-secondary rounded-4xl items-center p-5">
+    <div class="grow">
+      <ul class="flex gap-5">
+        {
+          navLinks.map((link) => (
             <li>
-              <a href={link.href}>
-                {Icon ? <Icon classes={link.iconClass} /> : link.label}
-              </a>
+              <a href={link.href}>{link.label}</a>
             </li>
-          );
-        })
-      }
-    </ul>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <ul class="flex gap-2 items-center">
+        {
+          socialLinks.map((link) => {
+            const Icon = link.Icon;
+            return (
+              <li>
+                <a href={link.href}>{<Icon classes={link.iconClass} />}</a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
   </div>
 </nav>
