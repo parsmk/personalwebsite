@@ -1,0 +1,56 @@
+---
+import LinkedinSVG from "./svgs/LinkedinIcon.astro";
+import GithubSVG from "./svgs/GithubIcon.astro";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+];
+
+const socialLinks = [
+  {
+    href: "/contact",
+    label: "Contact",
+  },
+  {
+    href: "https://github.com/parsmk",
+    Icon: GithubSVG,
+    iconClass: "size-10",
+  },
+  {
+    href: "https://www.linkedin.com/in/parsa-mohtashami-4a4509192/",
+    Icon: LinkedinSVG,
+    iconClass: "size-10",
+  },
+];
+---
+
+<nav class="flex sticky top-0 w-vw h-20 bg-primary">
+  <div class="grow">
+    <ul class="flex gap-2">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div>
+    <ul class="flex gap-2">
+      {
+        socialLinks.map((link) => {
+          const Icon = link.Icon;
+          return (
+            <li>
+              <a href={link.href}>
+                {Icon ? <Icon classes={link.iconClass} /> : link.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</nav>

@@ -1,17 +1,24 @@
 ---
-
+import RootLayout from "../layouts/RootLayout.astro";
+import Navbar from "../components/Navbar.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<RootLayout pageTitle="PMK Development">
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-row gap-2">
+      <img src="" alt="bg-placeholder" class="absolute inset-0 -z-1" />
+      <div
+        class="flex flex-col justify-center items-end bg-primary size-100 border-r-2 border-r-foreground"
+      >
+        <div class="bg-secondary w-[80%]">
+          <h1 class="font-bold text-5xl text-foreground">PMK Development</h1>
+          <h2 class="text-2xl text-foreground/70">
+            Software Engineer, Full-Stack Developer
+          </h2>
+        </div>
+      </div>
+      <img class="h-[80%] outline-1" src="" alt="placeholder" />
+    </div>
+  </div>
+  <Navbar />
+</RootLayout>
