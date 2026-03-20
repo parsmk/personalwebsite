@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import Checkmark from "../svgs/Checkmark.astro";
+import { Checkmark } from "../svgs/Checkmark";
 
 export const Success = ({
   setSent,
