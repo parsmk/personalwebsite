@@ -1,7 +1,7 @@
 import type { TechStack } from "../models/TechStack";
 
 export const techStackMap: Record<string, TechStack> = {
-  typescript: {
+  ts: {
     path: "/icons/typescript.svg",
     name: "Typescript",
     color: "#3178C6",
@@ -51,7 +51,7 @@ export const techStackMap: Record<string, TechStack> = {
     name: "Shopware",
     color: "#1B9BF0",
   },
-  javascript: {
+  js: {
     path: "/icons/js.svg",
     name: "Javascript",
     color: "#ff7b00",
@@ -75,5 +75,15 @@ export const techStackMap: Record<string, TechStack> = {
     path: "/icons/yaml.svg",
     name: "YAML",
     color: "#CC2828",
+  },
+  mongodb: {
+    path: "/icons/mongodb.svg",
+    name: "MongoDB",
+    color: "#4a8c4f",
+  },
+  astro: {
+    path: "/icons/astro.svg",
+    name: "Astro",
+    color: "#0d0d1a",
   },
 };
