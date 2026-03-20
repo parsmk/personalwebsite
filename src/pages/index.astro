@@ -5,7 +5,7 @@ import ProjectCard from "../components/projects/ProjectCard.astro";
 import type { MarkdownInstance } from "astro";
 import type { Project } from "../models/Project";
 import { EmailCard } from "../components/email-form/EmailCard";
-import Hero from "../components/hero/Hero.astro";
+import { Hero } from "../components/hero/Hero";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -14,7 +14,7 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 
 <RootLayout pageTitle="PMK Development">
   <div class="flex h-screen">
-    <Hero />
+    <Hero client:load />
   </div>
   <Navbar />
   <div class="flex min-h-[100vh] py-20 bg-accent">

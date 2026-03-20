@@ -7,14 +7,14 @@ interface Props {
   inputClasses?: string;
 }
 
-export default function InputField({
+export const InputField = ({
   label,
   name,
   placeholder,
   multiline = false,
   required = false,
   inputClasses = "",
-}: Props) {
+}: Props) => {
   const _inputClasses = `
     p-2 my-1 w-full rounded-lg outline-1 outline-accent/20
     focus:outline-accent/75 hover:outline-accent/75 hover:shadow-md hover:shadow-primary/25
@@ -46,4 +46,4 @@ export default function InputField({
       )}
     </div>
   );
-}
+};

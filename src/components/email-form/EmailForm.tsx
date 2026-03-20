@@ -1,5 +1,5 @@
 import { useActionState, useState } from "react";
-import InputField from "./InputField";
+import { InputField } from "./InputField";
 import { Success } from "./Success";
 import { Spinner } from "../svgs/Spinner";
 
