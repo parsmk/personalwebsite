@@ -8,7 +8,39 @@
   --color-background: light-dark(#ffffff, #000000);
 }
 
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes draw-circle {
+  from { stroke-dashoffset: 1.05; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes draw-check {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
 @layer components {
+  .animate-draw-circle {
+    stroke-dasharray: 1.05;
+    stroke-dashoffset: 1.05;
+    animation: draw-circle 1s ease forwards;
+  }
+
+  .animate-fade-up {
+    opacity: 0;
+    animation: fade-up 0.5s ease forwards;
+  }
+
+  .animate-draw-check {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw-check 0.75s ease forwards 0.5s;
+  }
+
   .btn {
     @apply p-3 rounded-xl outline-1 shrink-0
   }
@@ -26,8 +58,8 @@
   }
 
   .btn-outline {
-    @apply p-3 rounded-xl outline-1 outline-accent
-           hover:outline-accent/60 bg-transparent cursor-pointer
+    @apply p-3 rounded-xl outline-1 outline-accent/50 text-accent/50
+           hover:outline-accent/80 hover:text-accent/85 hover:bg-secondary/30 cursor-pointer
            transition duration-300;
   }
 }
