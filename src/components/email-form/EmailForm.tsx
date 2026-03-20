@@ -15,10 +15,11 @@ export const EmailForm = ({
       <div className="grid sm:grid-cols-2 gap-2 mx-auto">
         <InputField
           label="Email"
-          placeholder="barborossa@piratescove.ca..."
+          placeholder="barbarossa@piratescove.ca..."
           name="email"
+          required
         />
-        <InputField label="Name" placeholder="Barborossa..." name="name" />
+        <InputField label="Name" placeholder="Barbarossa..." name="name" />
         <div className="col-span-full">
           <InputField
             label="Subject"
@@ -30,9 +31,10 @@ export const EmailForm = ({
           <InputField
             label="Body"
             name="body"
-            placeholder="Captain Jack Sparrow has stolen my ship!"
+            placeholder="yarrr ... Jack Sparrow has stolen the BlackPearl!"
             inputClasses="h-50"
             multiline
+            required
           />
         </div>
       </div>
