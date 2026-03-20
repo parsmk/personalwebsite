@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { EmailForm } from "./EmailForm";
-import { Success } from "./Success";
 
 export const EmailCard = () => {
-  const [sent, setSent] = useState<boolean>(false);
   return (
     <div className="flex flex-col sm:h-170 w-200 outline-2 rounded-3xl outline-accent overflow-hidden">
       <div className="bg-primary py-6 px-10 text-white">
@@ -13,11 +10,7 @@ export const EmailCard = () => {
         </p>
       </div>
       <div className="p-10 flex flex-col grow">
-        {!sent ? (
-          <EmailForm setSent={setSent} />
-        ) : (
-          <Success setSent={setSent} />
-        )}
+        <EmailForm />
       </div>
     </div>
   );

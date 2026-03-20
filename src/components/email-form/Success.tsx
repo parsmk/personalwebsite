@@ -1,11 +1,6 @@
-import type { Dispatch, SetStateAction } from "react";
 import { Checkmark } from "../svgs/Checkmark";
 
-export const Success = ({
-  setSent,
-}: {
-  setSent: Dispatch<SetStateAction<boolean>>;
-}) => {
+export const Success = ({ onReset }: { onReset: () => void }) => {
   return (
     <div className="flex flex-col items-center justify-center grow gap-10">
       <div>
@@ -22,7 +17,7 @@ export const Success = ({
       </div>
       <button
         className="btn btn-outline animate-fade-up"
-        onClick={() => setSent(false)}
+        onClick={onReset}
       >
         Send another message
       </button>
