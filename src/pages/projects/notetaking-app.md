@@ -1,7 +1,7 @@
 ---
 name: "NoteTakingApp"
 url: "https://pmkdevelopment.ca"
-stack: ["Javascript", "ExpressJS", "TailwindCSS"]
+stack: ["javascript", "express", "tailwind"]
 githubAPIPath: ""
 githubURL: ""
 order: 2

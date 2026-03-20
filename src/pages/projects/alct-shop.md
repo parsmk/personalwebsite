@@ -1,7 +1,7 @@
 ---
 name: "alct-shop"
 url: "https://alct-shop.com"
-stack: ["Python", "Shopware"]
+stack: ["python", "shopware"]
 githubAPIPath: "keyvankhademi/alct-shop"
 githubURL: ""
 order: 2

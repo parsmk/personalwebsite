@@ -1,7 +1,7 @@
 ---
 name: "pokedex"
 url: ""
-stack: ["Typescript", "ReactJS", "TailwindCSS", "tanstack/react-query"]
+stack: ["typescript", "react", "tailwind", "reactQuery"]
 githubAPIPath: "parsmk/pokedex"
 githubURL: "https://github.com/parsmk/pokedex"
 order: 3

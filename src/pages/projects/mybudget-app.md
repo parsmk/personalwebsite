@@ -1,7 +1,7 @@
 ---
 name: "mybudget-app"
 url: "https://pmkdevelopment.com"
-stack: ["Typescript", "NextJS", "ExpressJS", "TailwindCSS", "tanstack/react-query", "PostgreSQL"]
+stack: ["typescript", "next", "express", "tailwind", "reactQuery", "postgreSQL"]
 githubAPIPath: "parsmk/mybudget-frontend"
 githubURL: "https://github.com/parsmk/mybudget-frontend"
 order: 2
