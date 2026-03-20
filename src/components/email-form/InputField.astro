@@ -1,0 +1,51 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  placeholder: string;
+  multiline?: boolean;
+  required?: boolean;
+  inputClasses?: string;
+}
+
+const {
+  label,
+  name,
+  placeholder,
+  multiline = false,
+  required = false,
+  inputClasses = "",
+} = Astro.props;
+
+const _inputClasses = `
+  p-2 my-1 w-full rounded-lg outline-1 outline-accent/20 
+
+  ${inputClasses}
+`;
+---
+
+<div class="w-full">
+  <label class="text-right text-sm" for={name}
+    >{label}{
+      !required ? <span class="text-accent/50"> — optional</span> : null
+    }</label
+  >
+  {
+    multiline ? (
+      <textarea
+        {name}
+        class={_inputClasses}
+        placeholder={placeholder}
+        required={required}
+      />
+    ) : (
+      <input
+        {name}
+        class={_inputClasses}
+        type="text"
+        placeholder={placeholder}
+        required={required}
+      />
+    )
+  }
+</div>
