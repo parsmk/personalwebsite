@@ -1,10 +1,11 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
-import Navbar from "../components/Navbar.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import Navbar from "../components/navigation/Navbar.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
 import type { MarkdownInstance } from "astro";
 import type { Project } from "../models/Project";
 import { EmailCard } from "../components/email-form/EmailCard";
+import Hero from "../components/hero/Hero.astro";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -12,24 +13,11 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 ---
 
 <RootLayout pageTitle="PMK Development">
-  <div class="flex flex-col h-screen">
-    <div class="flex flex-row items-center justify-center grow gap-2">
-      <img src="" alt="bg-placeholder" class="absolute inset-0 -z-1" />
-      <div
-        class="flex flex-col justify-center items-end rounded-tl-full rounded-bl-full bg-secondary/50 size-100 border-r-2 border-r-foreground"
-      >
-        <div class="w-[80%]">
-          <h1 class="font-bold text-5xl text-foreground">PMK Development</h1>
-          <h2 class="text-2xl text-foreground/70 my-2">
-            Software Engineer, Full-Stack Developer
-          </h2>
-        </div>
-      </div>
-      <img class="h-[80%] outline-1" src="" alt="placeholder" />
-    </div>
+  <div class="flex h-screen">
+    <Hero />
   </div>
   <Navbar />
-  <div class="flex min-h-[80vh] py-20 bg-accent">
+  <div class="flex min-h-[100vh] py-20 bg-accent">
     <div
       class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto my-auto w-[75%]"
     >
@@ -45,7 +33,7 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <div
-    class="flex flex-col lg:flex-row min-h-[80vh] gap-5 p-5 bg-white items-center justify-center w-full"
+    class="flex flex-col lg:flex-row min-h-[100vh] gap-5 p-5 bg-white items-center justify-center w-full"
   >
     <img src="" alt="imageofsomething" class="sm:w-[30%]" />
     <EmailCard client:load />
