@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import type { MarkdownInstance } from "astro";
 import type { Project } from "../models/Project";
-import EmailForm from "../components/email-form/EmailForm.astro";
+import { EmailCard } from "../components/email-form/EmailCard";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -43,19 +43,9 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <div
-    class="flex min-h-[80vh] gap-5 bg-white items-center justify-center w-full"
+    class="flex flex-col sm:flex-row min-h-[80vh] gap-5 p-5 bg-white items-center justify-center w-full"
   >
-    <img src="" alt="imageofsomething" class="w-[30%]" />
-    <div
-      class="flex flex-col w-[40%] outline-2 rounded-3xl outline-accent overflow-hidden"
-    >
-      <div class="bg-primary py-6 px-10 text-white">
-        <p class="uppercase">get in touch</p>
-        <p class="text-3xl">Let's work <i>together.</i></p>
-      </div>
-      <div class="px-10">
-        <EmailForm />
-      </div>
-    </div>
+    <img src="" alt="imageofsomething" class="sm:w-[30%]" />
+    <EmailCard client:load />
   </div>
 </RootLayout>

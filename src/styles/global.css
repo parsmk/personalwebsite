@@ -7,3 +7,27 @@
   --color-foreground: light-dark(#000000, #ffffff);
   --color-background: light-dark(#ffffff, #000000);
 }
+
+@layer components {
+  .btn {
+    @apply p-3 rounded-xl outline-1 shrink-0
+  }
+
+  .btn-primary {
+    @apply text-white outline-accent/50
+           hover:outline-accent/60 bg-primary/75 cursor-pointer
+           hover:bg-primary transition duration-300;
+  }
+
+  .btn-secondary {
+    @apply p-3 rounded-xl text-white outline-1 outline-accent/50
+           hover:outline-accent/60 bg-secondary/75 cursor-pointer
+           hover:bg-secondary transition duration-300;
+  }
+
+  .btn-outline {
+    @apply p-3 rounded-xl outline-1 outline-accent
+           hover:outline-accent/60 bg-transparent cursor-pointer
+           transition duration-300;
+  }
+}

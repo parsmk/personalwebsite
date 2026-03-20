@@ -46,7 +46,7 @@ const { name, url, stack } = Astro.props;
                 style={`background-color: ${t.color}50; outline: 1px solid ${t.color}90`}
                 class="flex items-center gap-1 rounded-lg p-1.5"
               >
-                <t.Icon classes="size-5 shrink-0" />
+                <img src={t.path} class="size-5 shrink-0" alt={t.name} />
                 <p>{t.name}</p>
               </div>
             );
