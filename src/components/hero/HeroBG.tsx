@@ -5,6 +5,7 @@ import { FieldCard } from "./noise-bgs/FieldCard";
 import { NoiseFields } from "./noise-bgs/NoiseFields";
 import type { NoiseProps } from "../../scripts/NoiseUtil";
 import { PerlinBG } from "./noise-bgs/PerlinBG";
+import { FractalBG } from "./noise-bgs/FractalBG";
 
 export enum NoiseModes {
   WORLEY = "worley",
@@ -13,33 +14,34 @@ export enum NoiseModes {
 
 const INIT_NOISE: NoiseProps = {
   offset: [0, 0],
-  scale: 150,
+  scale: 500,
   size: [0, 0],
 };
+
 export const HeroBG = () => {
   const [noiseMode, setNoiseMode] = useState<NoiseModes>(NoiseModes.PERLIN);
-  const [fractal, setFractal] = useState<boolean>(false);
+  const [fractal, setFractal] = useState<boolean>(true);
   const [noiseData, setNoiseData] = useState<NoiseProps>({
     ...INIT_NOISE,
     size: [window.innerWidth, window.innerHeight],
   });
 
   const [bg, setBG] = useState<React.ReactNode>(
-    <PerlinBG noiseData={noiseData} />,
+    <FractalBG noiseMode={noiseMode} noiseData={noiseData} />,
   );
   const [errs, setErrs] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
 
   const handleChange = () => {
     startTransition(() => {
-      let b: React.ReactNode;
+      if (fractal)
+        return setBG(<FractalBG noiseData={noiseData} noiseMode={noiseMode} />);
+
       switch (noiseMode) {
         case NoiseModes.WORLEY:
-          b = <WorleyBG noiseData={noiseData} />;
-          break;
+          setBG(<WorleyBG noiseData={noiseData} />);
         case NoiseModes.PERLIN:
-          b = <PerlinBG noiseData={noiseData} />;
-          break;
+          return setBG(<PerlinBG noiseData={noiseData} />);
       }
     });
   };
