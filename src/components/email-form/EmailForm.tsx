@@ -2,6 +2,7 @@ import { useActionState, useState } from "react";
 import { InputField } from "../ui-kit/InputField";
 import { Success } from "./Success";
 import { Spinner } from "../svgs/Spinner";
+import { Button } from "../ui-kit/Button";
 
 type FormState = { error: string } | { success: true } | null;
 
@@ -71,16 +72,7 @@ export const EmailForm = () => {
             Let's make something worth remembering!
           </p>
         )}
-        <button
-          className={`flex justify-center btn btn-primary h-[3rem] w-[10rem] ${isPending ? "pointer-events-none" : null}`}
-          disabled={isPending}
-        >
-          {isPending ? (
-            <Spinner classes="size-5 text-accent" />
-          ) : (
-            "Send Message"
-          )}
-        </button>
+        <Button isPending={isPending}>"Send Message"</Button>
       </div>
     </form>
   );
