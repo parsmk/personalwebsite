@@ -1,5 +1,4 @@
 import {
-  DIMENSIONS,
   index,
   makeRNG,
   prngNext,
@@ -86,20 +85,20 @@ export class PerlinNoise {
     const smoothX = ease(deltaX);
     const smoothY = ease(deltaY);
 
-    return lerp(
-      lerp(dot00, dot10, smoothX),
-      lerp(dot01, dot11, smoothX),
-      smoothY,
+    return (
+      (lerp(lerp(dot00, dot10, smoothX), lerp(dot01, dot11, smoothX), smoothY) +
+        1) /
+      2
     );
   }
 
-  noiseMap({ offset, scale }: NoiseProps): number[] {
+  noiseMap({ offset, scale, size }: NoiseProps): number[] {
     const map: number[] = [];
-    for (let x = 0; x < DIMENSIONS; x++) {
-      for (let y = 0; y < DIMENSIONS; y++) {
+    for (let y = 0; y < size[1]; y++) {
+      for (let x = 0; x < size[0]; x++) {
         const sampleX = (x + offset[0]) / scale;
         const sampleY = (y + offset[1]) / scale;
-        map[index(x, y)] = this.noise(sampleX, sampleY);
+        map[index(size, x, y)] = this.noise(sampleX, sampleY);
       }
     }
     return map;

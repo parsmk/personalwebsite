@@ -1,11 +1,9 @@
+import { HeroBG } from "./HeroBG";
+
 export const Hero = () => {
   return (
     <div className="flex flex-row items-center justify-center grow gap-2">
-      <img
-        src="hero-bg.jpg"
-        alt="bg-placeholder"
-        className="absolute inset-0 -z-1"
-      />
+      <HeroBG />
       <div className="flex flex-col justify-center items-end rounded-tl-full size-100">
         <div className="w-[80%]">
           <h1 className="font-bold text-5xl text-accent">PMK Development</h1>

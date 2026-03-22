@@ -20,8 +20,6 @@ export const POST: APIRoute = async ({ request }) => {
     html: `<p>From: ${name} (${email})</p><p>${body}</p>`,
   });
 
-  console.log(error);
-
   if (error) {
     return new Response(JSON.stringify({ error }), { status: 500 });
   }

@@ -1,5 +1,4 @@
 import {
-  DIMENSIONS,
   index,
   makeRNG,
   prngNext,
@@ -16,33 +15,28 @@ export class WorleyNoise {
     const rng = typeof seedOrRng === "string" ? makeRNG(seedOrRng) : seedOrRng;
     this.seedPoints = [];
     for (let i = 0; i < numSeeds; i++) {
-      this.seedPoints[i] = [
-        prngNext(rng, 0, DIMENSIONS),
-        prngNext(rng, 0, DIMENSIONS),
-      ];
+      this.seedPoints[i] = [prngNext(rng, 0, 1), prngNext(rng, 0, 1)];
     }
   }
 
   noise(sampleX: number, sampleY: number): number {
     let minDist = Number.MAX_VALUE;
-
     for (let i = 0; i < this.seedPoints.length; i++) {
       const dx = sampleX - this.seedPoints[i][0];
       const dy = sampleY - this.seedPoints[i][1];
       const dist = Math.sqrt(dx * dx + dy * dy);
       minDist = Math.min(dist, minDist);
     }
-
     return minDist;
   }
 
-  noiseMap({ offset, scale }: NoiseProps): number[] {
+  noiseMap({ offset, scale, size }: NoiseProps): number[] {
     const map: number[] = [];
-    for (let x = 0; x < DIMENSIONS; x++) {
-      for (let y = 0; y < DIMENSIONS; y++) {
+    for (let y = 0; y < size[1]; y++) {
+      for (let x = 0; x < size[0]; x++) {
         const sampleX = (x + offset[0]) / scale;
         const sampleY = (y + offset[1]) / scale;
-        map[index(x, y)] = this.noise(sampleX, sampleY);
+        map[index(size, x, y)] = this.noise(sampleX, sampleY);
       }
     }
     return map;

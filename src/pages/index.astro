@@ -14,7 +14,7 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 
 <RootLayout pageTitle="PMK Development">
   <div class="flex h-screen">
-    <Hero client:load />
+    <Hero client:only="react" />
   </div>
   <Navbar />
   <div class="flex min-h-[100vh] py-20 bg-accent">
