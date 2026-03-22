@@ -3,7 +3,7 @@ import type { ChangeEventHandler } from "react";
 interface Props {
   label: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   type?: "text" | "number" | "multiline";
   value?: string;
   required?: boolean;
