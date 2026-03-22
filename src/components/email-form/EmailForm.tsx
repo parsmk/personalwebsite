@@ -54,7 +54,7 @@ export const EmailForm = () => {
             name="body"
             placeholder="yarrr ... Jack Sparrow has stolen the BlackPearl!"
             inputClasses="h-50"
-            multiline
+            type="multiline"
             required
           />
         </div>

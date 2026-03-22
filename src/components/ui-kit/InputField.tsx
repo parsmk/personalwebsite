@@ -1,19 +1,24 @@
+import type { ChangeEventHandler } from "react";
+
 interface Props {
   label: string;
   name: string;
   placeholder: string;
-  multiline?: boolean;
+  type?: "text" | "number" | "multiline";
+  value?: string;
   required?: boolean;
   inputClasses?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
 }
 
 export const InputField = ({
   label,
   name,
   placeholder,
-  multiline = false,
+  type = "text",
   required = false,
   inputClasses = "",
+  onChange,
 }: Props) => {
   const _inputClasses = `
     p-2 my-1 w-full rounded-lg outline-1 outline-accent/20
@@ -28,20 +33,22 @@ export const InputField = ({
         {label}
         {!required ? <span className="text-accent/50"> — optional</span> : null}
       </label>
-      {multiline ? (
+      {type === "multiline" ? (
         <textarea
           name={name}
           className={_inputClasses}
           placeholder={placeholder}
           required={required}
+          onChange={onChange}
         />
       ) : (
         <input
           name={name}
+          type={type}
           className={_inputClasses}
-          type="text"
           placeholder={placeholder}
           required={required}
+          onChange={onChange}
         />
       )}
     </div>
