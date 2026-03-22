@@ -43,11 +43,8 @@ const generatePermutationTable = (rng: RNG): number[] => {
 export class PerlinNoise {
   private pTable: number[];
 
-  constructor(seed: string);
-  constructor(rng: RNG);
-  constructor(seedOrRng: string | RNG) {
-    const rng = typeof seedOrRng === "string" ? makeRNG(seedOrRng) : seedOrRng;
-    this.pTable = generatePermutationTable(rng);
+  constructor(seed: string) {
+    this.pTable = generatePermutationTable(makeRNG(seed));
   }
 
   private indexPermutation(x: number, y: number): number {

@@ -20,7 +20,7 @@ export class FractalNoise {
   octaves: number;
 
   constructor(
-    seed: string | RNG,
+    seed: string,
     { lacunarity, persistence, octaves }: FractalProps,
     noiseFunc: (sampleX: number, sampleY: number) => number,
   ) {
