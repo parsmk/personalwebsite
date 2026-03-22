@@ -7,12 +7,6 @@ type NoiseFieldsProps = {
   setNoiseData: React.Dispatch<SetStateAction<NoiseProps>>;
 };
 
-export const INIT_NOISE: NoiseProps = {
-  offset: [0, 0],
-  scale: 150,
-  size: [0, 0],
-};
-
 export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
   return (
     <div>
