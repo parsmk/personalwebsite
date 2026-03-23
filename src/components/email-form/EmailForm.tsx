@@ -41,12 +41,18 @@ export const EmailForm = () => {
           name="email"
           required
         />
-        <InputField label="Name" placeholder="Barbarossa..." name="name" />
+        <InputField
+          label="Name"
+          placeholder="Barbarossa..."
+          name="name"
+          optional
+        />
         <div className="col-span-full">
           <InputField
             label="Subject"
             placeholder="re: Black Pearl..."
             name="subject"
+            optional
           />
         </div>
         <div className="col-span-full">

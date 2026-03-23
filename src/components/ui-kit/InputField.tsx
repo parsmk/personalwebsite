@@ -8,6 +8,7 @@ interface Props {
   value?: string;
   required?: boolean;
   inputClasses?: string;
+  optional?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement>;
 }
@@ -20,6 +21,7 @@ export const InputField = ({
   value,
   required = false,
   inputClasses = "",
+  optional = false,
   onChange,
   onBlur,
 }: Props) => {
@@ -42,7 +44,9 @@ export const InputField = ({
     <div className="w-full">
       <label className="text-right text-sm" htmlFor={name}>
         {label}
-        {!required ? <span className="text-accent/50"> — optional</span> : null}
+        {!required && optional ? (
+          <span className="text-accent/50"> — optional</span>
+        ) : null}
       </label>
       {type === "multiline" ? (
         <textarea
