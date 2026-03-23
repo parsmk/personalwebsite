@@ -15,7 +15,7 @@ export const WorleyBG = ({ noiseData, seed, color }: WorleyBGProps) => {
 
   const noiseMap = useMemo(
     () => new WorleyNoise(worleySeeds, seed).noiseMap(noiseData),
-    [worleySeeds, noiseData],
+    [worleySeeds, noiseData, color],
   );
 
   return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;

@@ -13,7 +13,7 @@ type PerlinBGProps = {
 export const PerlinBG = ({ noiseData, seed, color }: PerlinBGProps) => {
   const noiseMap = useMemo(
     () => new PerlinNoise(seed).noiseMap(noiseData),
-    [noiseData],
+    [noiseData, color],
   );
   return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;
 };

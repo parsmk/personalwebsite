@@ -46,7 +46,7 @@ export const FractalBG = ({
       fractalData,
       noiseClass.noise.bind(noiseClass),
     ).noiseMap(noiseData);
-  }, [worleySeeds, noiseData, noiseMode, seed, fractalData]);
+  }, [worleySeeds, noiseData, noiseMode, seed, fractalData, color]);
 
   return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;
 };

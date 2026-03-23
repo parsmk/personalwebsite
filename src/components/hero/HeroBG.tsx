@@ -9,6 +9,7 @@ import { FractalBG } from "./noise-bgs/FractalBG";
 import { Button } from "../ui-kit/Button";
 import { InputField } from "../ui-kit/InputField";
 import type { RGB } from "../../scripts/ColorMap";
+import { RgbColorPicker } from "react-colorful";
 
 export enum NoiseModes {
   WORLEY = "worley",
@@ -30,7 +31,7 @@ export const HeroBG = () => {
     ...INIT_NOISE,
     size: [window.innerWidth, window.innerHeight],
   });
-  const [color, setColor] = useState<RGB>([4, 52, 44]);
+  const [color, setColor] = useState<RGB>({ r: 4, g: 52, b: 44 });
 
   const [bg, setBG] = useState<React.ReactNode>(
     <FractalBG
@@ -68,7 +69,7 @@ export const HeroBG = () => {
           );
       }
     });
-  }, [fractal, noiseMode, noiseData, seed, worleySeeds]);
+  }, [fractal, noiseMode, noiseData, seed, worleySeeds, color]);
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
@@ -81,6 +82,14 @@ export const HeroBG = () => {
             label={"Seed"}
             name={""}
           />
+          <div>
+            <p className="mb-2">Color</p>
+            <RgbColorPicker
+              className="mx-auto opacity-50 group-hover:opacity-75 transition"
+              color={color}
+              onChange={setColor}
+            />
+          </div>
         </FieldCard>
         {bg} {isPending && <LoadingBG />}
         <div className="absolute flex gap-2 bottom-10 left-1/2 -translate-x-1/2 bg-white py-3 px-10 rounded-full">
