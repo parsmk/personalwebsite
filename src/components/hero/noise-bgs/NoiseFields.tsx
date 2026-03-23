@@ -1,10 +1,9 @@
-import { type SetStateAction } from "react";
 import type { NoiseProps } from "../../../scripts/NoiseUtil";
 import { InputField } from "../../ui-kit/InputField";
 
 type NoiseFieldsProps = {
   noiseData: NoiseProps;
-  setNoiseData: React.Dispatch<SetStateAction<NoiseProps>>;
+  setNoiseData: (next: NoiseProps) => void;
 };
 
 export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
@@ -20,10 +19,10 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
             value={noiseData.offset[0].toFixed(2)}
             onChange={(e) => {
               const val = Number(e.currentTarget.value);
-              setNoiseData((prev) => ({
-                ...prev,
-                offset: [val, prev.offset[1]],
-              }));
+              setNoiseData({
+                ...noiseData,
+                offset: [val, noiseData.offset[1]],
+              });
             }}
             placeholder={"0"}
           />
@@ -34,10 +33,10 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
             value={noiseData.offset[1].toFixed(2)}
             onChange={(e) => {
               const val = Number(e.currentTarget.value);
-              setNoiseData((prev) => ({
-                ...prev,
-                offset: [prev.offset[0], val],
-              }));
+              setNoiseData({
+                ...noiseData,
+                offset: [noiseData.offset[0], val],
+              });
             }}
             placeholder={"0"}
           />
@@ -53,10 +52,10 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
             value={noiseData.offset[0].toFixed(2)}
             onChange={(e) => {
               const val = Number(e.currentTarget.value);
-              setNoiseData((prev) => ({
-                ...prev,
-                offset: [val, prev.offset[1]],
-              }));
+              setNoiseData({
+                ...noiseData,
+                offset: [val, noiseData.offset[1]],
+              });
             }}
             placeholder={"0"}
           />
@@ -67,10 +66,10 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
             value={noiseData.offset[1].toFixed(2)}
             onChange={(e) => {
               const val = Number(e.currentTarget.value);
-              setNoiseData((prev) => ({
-                ...prev,
-                offset: [prev.offset[0], val],
-              }));
+              setNoiseData({
+                ...noiseData,
+                offset: [noiseData.offset[0], val],
+              });
             }}
             placeholder={"0"}
           />
@@ -83,7 +82,7 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
         value={noiseData.scale.toFixed(2)}
         onChange={(e) => {
           const val = Number(e.currentTarget.value);
-          setNoiseData((prev) => ({ ...prev, scale: val }));
+          setNoiseData({ ...noiseData, scale: val });
         }}
       />
     </div>
