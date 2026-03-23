@@ -1,4 +1,4 @@
-import { index } from "./NoiseUtil";
+import { index } from "./noise/NoiseUtil";
 
 export type RGB = { r: number; g: number; b: number };
 

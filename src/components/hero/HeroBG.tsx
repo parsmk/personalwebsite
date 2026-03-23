@@ -3,7 +3,7 @@ import { LoadingBG } from "./noise-bgs/LoadingBG";
 import { WorleyBG } from "./noise-bgs/WorleyBG";
 import { FieldCard } from "./noise-bgs/FieldCard";
 import { NoiseFields } from "./noise-bgs/NoiseFields";
-import type { NoiseProps } from "../../scripts/NoiseUtil";
+import type { NoiseProps } from "../../scripts/noise/NoiseUtil";
 import { PerlinBG } from "./noise-bgs/PerlinBG";
 import { FractalBG } from "./noise-bgs/FractalBG";
 import { Button } from "../ui-kit/Button";
@@ -30,7 +30,11 @@ const INIT_CONFIG: RenderConfig = {
   worleySeeds: 2,
   noiseMode: NoiseModes.PERLIN,
   fractal: true,
-  noiseData: { offset: [0, 0], scale: 250, size: [window.innerWidth, window.innerHeight] },
+  noiseData: {
+    offset: [0, 0],
+    scale: 250,
+    size: [window.innerWidth, window.innerHeight],
+  },
   color: { r: 4, g: 52, b: 44 },
 };
 
@@ -63,7 +67,8 @@ export const HeroBG = () => {
   };
 
   useEffect(() => {
-    const { fractal, seed, worleySeeds, noiseData, noiseMode, color } = renderConfig;
+    const { fractal, seed, worleySeeds, noiseData, noiseMode, color } =
+      renderConfig;
     startTransition(() => {
       if (fractal)
         return setBG(
@@ -113,7 +118,9 @@ export const HeroBG = () => {
               name="worleySeedCount"
               label="Worley Seed count"
               value={editConfig.worleySeeds.toFixed(0)}
-              onChange={(e) => editPush({ worleySeeds: Number(e.currentTarget.value) })}
+              onChange={(e) =>
+                editPush({ worleySeeds: Number(e.currentTarget.value) })
+              }
             />
           )}
           <div>

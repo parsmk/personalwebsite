@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import type { NoiseProps } from "../../../scripts/NoiseUtil";
+import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { Canvas } from "./Canvas";
-import { WorleyNoise } from "../../../scripts/Worley";
+import { WorleyNoise } from "../../../scripts/noise/Worley";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 
 type WorleyBGProps = {

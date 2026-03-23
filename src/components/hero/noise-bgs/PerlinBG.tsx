@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import type { NoiseProps } from "../../../scripts/NoiseUtil";
+import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { Canvas } from "./Canvas";
-import { PerlinNoise } from "../../../scripts/Perlin";
+import { PerlinNoise } from "../../../scripts/noise/Perlin";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 
 type PerlinBGProps = {

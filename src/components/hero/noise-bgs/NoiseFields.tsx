@@ -1,4 +1,4 @@
-import type { NoiseProps } from "../../../scripts/NoiseUtil";
+import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { InputField } from "../../ui-kit/InputField";
 
 type NoiseFieldsProps = {

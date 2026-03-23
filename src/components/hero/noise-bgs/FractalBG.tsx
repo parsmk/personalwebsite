@@ -1,10 +1,13 @@
 import { useMemo, useState } from "react";
-import { FractalNoise, type FractalProps } from "../../../scripts/Fractal";
-import { WorleyNoise } from "../../../scripts/Worley";
+import {
+  FractalNoise,
+  type FractalProps,
+} from "../../../scripts/noise/Fractal";
+import { WorleyNoise } from "../../../scripts/noise/Worley";
 import { Canvas } from "./Canvas";
-import type { NoiseProps } from "../../../scripts/NoiseUtil";
+import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { NoiseModes } from "../HeroBG";
-import { PerlinNoise } from "../../../scripts/Perlin";
+import { PerlinNoise } from "../../../scripts/noise/Perlin";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 
 const INIT_FRACTAL: FractalProps = {
