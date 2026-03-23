@@ -72,7 +72,9 @@ export const EmailForm = () => {
             Let's make something worth remembering!
           </p>
         )}
-        <Button isPending={isPending}>"Send Message"</Button>
+        <Button type="submit" isPending={isPending}>
+          "Send Message"
+        </Button>
       </div>
     </form>
   );
