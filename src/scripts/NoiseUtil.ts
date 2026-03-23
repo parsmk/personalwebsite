@@ -15,3 +15,22 @@ export const prngNext = (rng: RNG, min: number, max: number): number =>
 
 export const index = (size: [number, number], x: number, y: number) =>
   y * size[0] + x;
+
+export const generatePermutationTable = (rng: RNG): number[] => {
+  const output: number[] = new Array(512);
+
+  for (let i = 0; i < 256; i++) {
+    output[i] = i;
+  }
+
+  for (let i = 255; i > 0; i--) {
+    const j = prngNext(rng, 0, i);
+    [output[j], output[i]] = [output[i], output[j]];
+  }
+
+  for (let i = 0; i < 256; i++) {
+    output[i + 256] = output[i];
+  }
+
+  return output;
+};

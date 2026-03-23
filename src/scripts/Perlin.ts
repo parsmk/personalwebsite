@@ -1,9 +1,8 @@
 import {
+  generatePermutationTable,
   index,
   makeRNG,
-  prngNext,
   type NoiseProps,
-  type RNG,
 } from "./NoiseUtil";
 
 const constantVectors: [number, number][] = [
@@ -20,25 +19,6 @@ const constantVectors: [number, number][] = [
 const ease = (t: number) => ((6.0 * t - 15.0) * t + 10.0) * t * t * t;
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-const generatePermutationTable = (rng: RNG): number[] => {
-  const output: number[] = new Array(512);
-
-  for (let i = 0; i < 256; i++) {
-    output[i] = i;
-  }
-
-  for (let i = 255; i > 0; i--) {
-    const j = prngNext(rng, 0, i);
-    [output[j], output[i]] = [output[i], output[j]];
-  }
-
-  for (let i = 0; i < 256; i++) {
-    output[i + 256] = output[i];
-  }
-
-  return output;
-};
 
 export class PerlinNoise {
   private pTable: number[];

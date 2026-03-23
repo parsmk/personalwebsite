@@ -1,4 +1,5 @@
 import {
+  generatePermutationTable,
   index,
   makeRNG,
   prngNext,
@@ -7,10 +8,24 @@ import {
 } from "./NoiseUtil";
 
 export class WorleyNoise {
+  private pTable: number[];
   numSeeds: number;
 
-  constructor(numSeeds: number) {
+  constructor(numSeeds: number, seed: string) {
     this.numSeeds = numSeeds;
+    this.pTable = generatePermutationTable(makeRNG(seed));
+  }
+
+  private cellPoints(cx: number, cy: number): [number, number][] {
+    const points: [number, number][] = [];
+    for (let i = 0; i < this.numSeeds; i++) {
+      const h =
+        this.pTable[((cx & 255) + this.pTable[(cy + i * 53) & 255]) & 511];
+      const px = cx + h / 255;
+      const py = cy + this.pTable[(h + 37 + i * 17) & 511] / 255;
+      points.push([px, py]);
+    }
+    return points;
   }
 
   noise(sampleX: number, sampleY: number): number {
@@ -20,32 +35,25 @@ export class WorleyNoise {
     let minDist = Number.MAX_VALUE;
     for (let dx = -1; dx <= 1; dx++) {
       for (let dy = -1; dy <= 1; dy++) {
-        const cx = cellX + dx;
-        const cy = cellY + dy;
-        const cellRng = makeRNG(`${cx},${cy}`);
-        for (let i = 0; i < this.numSeeds; i++) {
-          const px = cx + prngNext(cellRng, 0, 1);
-          const py = cy + prngNext(cellRng, 0, 1);
+        for (const [px, py] of this.cellPoints(cellX + dx, cellY + dy)) {
           const distX = sampleX - px;
           const distY = sampleY - py;
-          minDist = Math.min(minDist, Math.sqrt(distX * distX + distY * distY));
+          minDist = Math.min(minDist, distX * distX + distY * distY);
         }
       }
     }
-    return minDist;
+    return Math.sqrt(minDist);
   }
 
-  noiseMap({ offset, scale, size }: NoiseProps): Promise<number[]> {
-    return new Promise((resolve) => {
-      const map: number[] = [];
-      for (let y = 0; y < size[1]; y++) {
-        for (let x = 0; x < size[0]; x++) {
-          const sampleX = (x + offset[0]) / scale;
-          const sampleY = (y + offset[1]) / scale;
-          map[index(size, x, y)] = this.noise(sampleX, sampleY);
-        }
+  noiseMap({ offset, scale, size }: NoiseProps) {
+    const map: number[] = [];
+    for (let y = 0; y < size[1]; y++) {
+      for (let x = 0; x < size[0]; x++) {
+        const sampleX = (x + offset[0]) / scale;
+        const sampleY = (y + offset[1]) / scale;
+        map[index(size, x, y)] = this.noise(sampleX, sampleY);
       }
-      resolve(map);
-    });
+    }
+    return map;
   }
 }
