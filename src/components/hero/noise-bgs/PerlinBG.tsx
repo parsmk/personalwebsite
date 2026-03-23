@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { NoiseProps } from "../../../scripts/NoiseUtil";
 import { Canvas } from "./Canvas";
 import { PerlinNoise } from "../../../scripts/Perlin";
@@ -13,7 +13,7 @@ type PerlinBGProps = {
 export const PerlinBG = ({ noiseData, seed, color }: PerlinBGProps) => {
   const noiseMap = useMemo(
     () => new PerlinNoise(seed).noiseMap(noiseData),
-    [noiseData, color],
+    [noiseData, seed],
   );
   return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;
 };

@@ -42,7 +42,7 @@ export class WorleyNoise {
         }
       }
     }
-    return Math.sqrt(minDist);
+    return minDist;
   }
 
   noiseMap({ offset, scale, size }: NoiseProps) {

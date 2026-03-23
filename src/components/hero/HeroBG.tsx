@@ -1,4 +1,4 @@
-import React, { useState, useTransition, useEffect } from "react";
+import React, { useState, useTransition, useEffect, useRef } from "react";
 import { LoadingBG } from "./noise-bgs/LoadingBG";
 import { WorleyBG } from "./noise-bgs/WorleyBG";
 import { FieldCard } from "./noise-bgs/FieldCard";
@@ -32,6 +32,8 @@ export const HeroBG = () => {
     size: [window.innerWidth, window.innerHeight],
   });
   const [color, setColor] = useState<RGB>({ r: 4, g: 52, b: 44 });
+  const [renderColor, setRenderColor] = useState<RGB>(color);
+  const colorDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [bg, setBG] = useState<React.ReactNode>(
     <FractalBG
@@ -54,22 +56,28 @@ export const HeroBG = () => {
             seed={seed}
             noiseData={noiseData}
             noiseMode={noiseMode}
-            color={color}
+            color={renderColor}
           />,
         );
 
       switch (noiseMode) {
         case NoiseModes.WORLEY:
           return setBG(
-            <WorleyBG seed={seed} noiseData={noiseData} color={color} />,
+            <WorleyBG seed={seed} noiseData={noiseData} color={renderColor} />,
           );
         case NoiseModes.PERLIN:
           return setBG(
-            <PerlinBG seed={seed} noiseData={noiseData} color={color} />,
+            <PerlinBG seed={seed} noiseData={noiseData} color={renderColor} />,
           );
       }
     });
-  }, [fractal, noiseMode, noiseData, seed, worleySeeds, color]);
+  }, [fractal, noiseMode, noiseData, seed, worleySeeds, renderColor]);
+
+  const handleColorChange = (c: RGB) => {
+    setColor(c);
+    if (colorDebounceRef.current) clearTimeout(colorDebounceRef.current);
+    colorDebounceRef.current = setTimeout(() => setRenderColor(c), 100);
+  };
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
@@ -80,19 +88,27 @@ export const HeroBG = () => {
             value={seed}
             onChange={(e) => setSeed(e.currentTarget.value)}
             label={"Seed"}
-            name={""}
+            name={"seed"}
           />
+          {noiseMode === NoiseModes.WORLEY && (
+            <InputField
+              name="worleySeedCount"
+              label="Worley Seed count"
+              value={worleySeeds.toFixed(0)}
+              onChange={(e) => setWorleySeeds(Number(e.currentTarget.value))}
+            />
+          )}
           <div>
             <p className="mb-2">Color</p>
             <RgbColorPicker
               className="mx-auto opacity-50 group-hover:opacity-75 transition"
               color={color}
-              onChange={setColor}
+              onChange={handleColorChange}
             />
           </div>
         </FieldCard>
         {bg} {isPending && <LoadingBG />}
-        <div className="absolute flex gap-2 bottom-10 left-1/2 -translate-x-1/2 bg-white py-3 px-10 rounded-full">
+        <div className="absolute flex gap-2 bottom-10 left-1/2 -translate-x-1/2 bg-white/40 hover:bg-white/50 transition py-3 px-10 rounded-full">
           <Button
             variant="outline"
             active={noiseMode === NoiseModes.PERLIN}

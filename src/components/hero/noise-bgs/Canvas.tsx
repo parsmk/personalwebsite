@@ -8,16 +8,18 @@ type CanvasProps = {
 };
 
 export const Canvas = ({ noiseMap, size, color }: CanvasProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+
   useEffect(() => {
     if (!noiseMap || !canvasRef.current) return;
-    const ctx = canvasRef.current.getContext("2d");
+    if (!ctxRef.current) ctxRef.current = canvasRef.current.getContext("2d");
+    const ctx = ctxRef.current;
     if (!ctx) return;
     const pixels = applyColorMap(noiseMap, size, color);
     const imageData = new ImageData(pixels, size[0], size[1]);
     ctx.putImageData(imageData, 0, 0);
-  }, [noiseMap, size]);
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  }, [noiseMap, size, color]);
   return (
     <canvas
       ref={canvasRef}
