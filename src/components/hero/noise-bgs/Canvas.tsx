@@ -1,17 +1,18 @@
 import { useEffect, useRef } from "react";
-import { applyColorMap } from "../../../scripts/ColorMap";
+import { applyColorMap, type RGB } from "../../../scripts/ColorMap";
 
 type CanvasProps = {
   noiseMap: number[];
   size: [number, number];
+  color: RGB;
 };
 
-export const Canvas = ({ noiseMap, size }: CanvasProps) => {
+export const Canvas = ({ noiseMap, size, color }: CanvasProps) => {
   useEffect(() => {
     if (!noiseMap || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
-    const pixels = applyColorMap(noiseMap, size);
+    const pixels = applyColorMap(noiseMap, size, color);
     const imageData = new ImageData(pixels, size[0], size[1]);
     ctx.putImageData(imageData, 0, 0);
   }, [noiseMap, size]);

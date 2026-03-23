@@ -8,6 +8,7 @@ import { PerlinBG } from "./noise-bgs/PerlinBG";
 import { FractalBG } from "./noise-bgs/FractalBG";
 import { Button } from "../ui-kit/Button";
 import { InputField } from "../ui-kit/InputField";
+import type { RGB } from "../../scripts/ColorMap";
 
 export enum NoiseModes {
   WORLEY = "worley",
@@ -29,6 +30,7 @@ export const HeroBG = () => {
     ...INIT_NOISE,
     size: [window.innerWidth, window.innerHeight],
   });
+  const [color, setColor] = useState<RGB>([4, 52, 44]);
 
   const [bg, setBG] = useState<React.ReactNode>(
     <FractalBG
@@ -36,6 +38,7 @@ export const HeroBG = () => {
       worleySeeds={worleySeeds}
       noiseMode={noiseMode}
       noiseData={noiseData}
+      color={color}
     />,
   );
   const [errs, setErrs] = useState<string[]>([]);
@@ -50,14 +53,19 @@ export const HeroBG = () => {
             seed={seed}
             noiseData={noiseData}
             noiseMode={noiseMode}
+            color={color}
           />,
         );
 
       switch (noiseMode) {
         case NoiseModes.WORLEY:
-          return setBG(<WorleyBG seed={seed} noiseData={noiseData} />);
+          return setBG(
+            <WorleyBG seed={seed} noiseData={noiseData} color={color} />,
+          );
         case NoiseModes.PERLIN:
-          return setBG(<PerlinBG seed={seed} noiseData={noiseData} />);
+          return setBG(
+            <PerlinBG seed={seed} noiseData={noiseData} color={color} />,
+          );
       }
     });
   }, [fractal, noiseMode, noiseData, seed, worleySeeds]);
