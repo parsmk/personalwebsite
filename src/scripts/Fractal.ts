@@ -1,6 +1,7 @@
 import {
   index,
   makeRNG,
+  normalize,
   prngNext,
   type NoiseProps,
   type RNG,
@@ -42,6 +43,7 @@ export class FractalNoise {
 
   noiseMap({ offset, scale, size }: NoiseProps): number[] {
     const map: number[] = [];
+    let [min, max] = [Infinity, -Infinity];
     for (let y = 0; y < size[1]; y++) {
       for (let x = 0; x < size[0]; x++) {
         let amp = 1.0;
@@ -57,11 +59,14 @@ export class FractalNoise {
           height += this.noiseFunc(sampleX, sampleY) * amp;
           amp *= this.persistence;
           freq *= this.lacunarity;
+
+          min = Math.min(min, height);
+          max = Math.max(max, height);
         }
 
         map[index(size, x, y)] = height;
       }
     }
-    return map;
+    return normalize(map, max, min);
   }
 }

@@ -2,6 +2,7 @@ import {
   generatePermutationTable,
   index,
   makeRNG,
+  normalize,
   type NoiseProps,
 } from "./NoiseUtil";
 
@@ -71,13 +72,17 @@ export class PerlinNoise {
 
   noiseMap({ offset, scale, size }: NoiseProps): number[] {
     const map: number[] = [];
+    let [min, max] = [Infinity, -Infinity];
     for (let y = 0; y < size[1]; y++) {
       for (let x = 0; x < size[0]; x++) {
         const sampleX = (x + offset[0]) / scale;
         const sampleY = (y + offset[1]) / scale;
-        map[index(size, x, y)] = this.noise(sampleX, sampleY);
+        const height = this.noise(sampleX, sampleY);
+        map[index(size, x, y)] = height;
+        min = Math.min(min, height);
+        max = Math.max(max, height);
       }
     }
-    return map;
+    return normalize(map, max, min);
   }
 }

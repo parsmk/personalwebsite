@@ -2,6 +2,7 @@ import {
   generatePermutationTable,
   index,
   makeRNG,
+  normalize,
   prngNext,
   type NoiseProps,
   type RNG,
@@ -47,6 +48,7 @@ export class WorleyNoise {
 
   noiseMap({ offset, scale, size }: NoiseProps) {
     const map: number[] = [];
+    let [min, max] = [Infinity, -Infinity];
     for (let y = 0; y < size[1]; y++) {
       for (let x = 0; x < size[0]; x++) {
         const sampleX = (x + offset[0]) / scale;
@@ -54,6 +56,6 @@ export class WorleyNoise {
         map[index(size, x, y)] = this.noise(sampleX, sampleY);
       }
     }
-    return map;
+    return normalize(map, max, min);
   }
 }

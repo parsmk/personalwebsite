@@ -14,7 +14,7 @@ const lerpColor = (a: RGB, b: RGB, t: number): RGB => {
 
 const sampleColorMap = (value: number, color: RGB): RGB => {
   const t = Math.max(0, Math.min(1, value));
-  return lerpColor({ r: 255, g: 255, b: 255 }, color, t);
+  return lerpColor(color, { r: 255, g: 255, b: 255 }, t);
 };
 
 export const applyColorMap = (

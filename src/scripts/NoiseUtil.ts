@@ -34,3 +34,8 @@ export const generatePermutationTable = (rng: RNG): number[] => {
 
   return output;
 };
+
+export const normalize = (map: number[], max: number, min: number) => {
+  const range = max - min || 1;
+  return map.map((v) => (v - min) / range);
+};

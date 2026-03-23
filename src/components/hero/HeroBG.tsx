@@ -63,7 +63,12 @@ export const HeroBG = () => {
       switch (noiseMode) {
         case NoiseModes.WORLEY:
           return setBG(
-            <WorleyBG seed={seed} noiseData={noiseData} color={renderColor} />,
+            <WorleyBG
+              seed={seed}
+              worleySeeds={worleySeeds}
+              noiseData={noiseData}
+              color={renderColor}
+            />,
           );
         case NoiseModes.PERLIN:
           return setBG(

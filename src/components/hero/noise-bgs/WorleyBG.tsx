@@ -7,12 +7,16 @@ import type { RGB } from "../../../scripts/ColorMap";
 type WorleyBGProps = {
   noiseData: NoiseProps;
   seed: string;
+  worleySeeds: number;
   color: RGB;
 };
 
-export const WorleyBG = ({ noiseData, seed, color }: WorleyBGProps) => {
-  const [worleySeeds] = useState(1);
-
+export const WorleyBG = ({
+  noiseData,
+  seed,
+  worleySeeds,
+  color,
+}: WorleyBGProps) => {
   const noiseMap = useMemo(
     () => new WorleyNoise(worleySeeds, seed).noiseMap(noiseData),
     [worleySeeds, noiseData, color],
