@@ -7,6 +7,7 @@ import type { NoiseProps } from "../../scripts/NoiseUtil";
 import { PerlinBG } from "./noise-bgs/PerlinBG";
 import { FractalBG } from "./noise-bgs/FractalBG";
 import { Button } from "../ui-kit/Button";
+import { InputField } from "../ui-kit/InputField";
 
 export enum NoiseModes {
   WORLEY = "worley",
@@ -20,6 +21,8 @@ const INIT_NOISE: NoiseProps = {
 };
 
 export const HeroBG = () => {
+  const [seed, setSeed] = useState<string>(crypto.randomUUID());
+  const [worleySeeds, setWorleySeeds] = useState<number>(2);
   const [noiseMode, setNoiseMode] = useState<NoiseModes>(NoiseModes.PERLIN);
   const [fractal, setFractal] = useState<boolean>(true);
   const [noiseData, setNoiseData] = useState<NoiseProps>({
@@ -28,7 +31,12 @@ export const HeroBG = () => {
   });
 
   const [bg, setBG] = useState<React.ReactNode>(
-    <FractalBG noiseMode={noiseMode} noiseData={noiseData} />,
+    <FractalBG
+      seed={seed}
+      worleySeeds={worleySeeds}
+      noiseMode={noiseMode}
+      noiseData={noiseData}
+    />,
   );
   const [errs, setErrs] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
@@ -36,30 +44,37 @@ export const HeroBG = () => {
   useEffect(() => {
     startTransition(() => {
       if (fractal)
-        return setBG(<FractalBG noiseData={noiseData} noiseMode={noiseMode} />);
+        return setBG(
+          <FractalBG
+            worleySeeds={worleySeeds}
+            seed={seed}
+            noiseData={noiseData}
+            noiseMode={noiseMode}
+          />,
+        );
 
       switch (noiseMode) {
         case NoiseModes.WORLEY:
-          return setBG(<WorleyBG noiseData={noiseData} />);
+          return setBG(<WorleyBG seed={seed} noiseData={noiseData} />);
         case NoiseModes.PERLIN:
-          return setBG(<PerlinBG noiseData={noiseData} />);
+          return setBG(<PerlinBG seed={seed} noiseData={noiseData} />);
       }
     });
-  }, [fractal, noiseMode, noiseData]);
+  }, [fractal, noiseMode, noiseData, seed, worleySeeds]);
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
       <div className="absolute inset-x-0 top-0 h-screen">
-        {isPending ? (
-          <LoadingBG />
-        ) : (
-          <>
-            <FieldCard>
-              <NoiseFields noiseData={noiseData} setNoiseData={setNoiseData} />
-            </FieldCard>
-            {bg}
-          </>
-        )}
+        <FieldCard>
+          <NoiseFields noiseData={noiseData} setNoiseData={setNoiseData} />
+          <InputField
+            value={seed}
+            onChange={(e) => setSeed(e.currentTarget.value)}
+            label={"Seed"}
+            name={""}
+          />
+        </FieldCard>
+        {bg} {isPending && <LoadingBG />}
         <div className="absolute flex gap-2 bottom-10 left-1/2 -translate-x-1/2 bg-white py-3 px-10 rounded-full">
           <Button
             variant="outline"

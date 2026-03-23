@@ -6,12 +6,12 @@ import { PerlinNoise } from "../../../scripts/Perlin";
 
 type PerlinBGProps = {
   noiseData: NoiseProps;
+  seed: string;
 };
 
-export const PerlinBG = ({ noiseData }: PerlinBGProps) => {
-  const [s, setS] = useState(crypto.randomUUID());
+export const PerlinBG = ({ noiseData, seed }: PerlinBGProps) => {
   const noiseMap = useMemo(
-    () => new PerlinNoise(s).noiseMap(noiseData),
+    () => new PerlinNoise(seed).noiseMap(noiseData),
     [noiseData],
   );
   return <Canvas noiseMap={noiseMap} size={noiseData.size} />;

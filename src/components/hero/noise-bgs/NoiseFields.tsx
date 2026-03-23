@@ -10,61 +10,71 @@ type NoiseFieldsProps = {
 export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
   return (
     <div>
-      <div className="flex gap-3">
-        <InputField
-          label={"x"}
-          type="number"
-          name={"offset-x"}
-          value={noiseData.offset[0].toFixed(2)}
-          onChange={(e) =>
-            setNoiseData((prev) => ({
-              ...prev,
-              offset: [Number(e.currentTarget.value), prev.offset[1]],
-            }))
-          }
-          placeholder={"0"}
-        />
-        <InputField
-          label={"y"}
-          type="number"
-          name={"offset-y"}
-          value={noiseData.offset[1].toFixed(2)}
-          onChange={(e) =>
-            setNoiseData((prev) => ({
-              ...prev,
-              offset: [prev.offset[0], Number(e.currentTarget.value)],
-            }))
-          }
-          placeholder={"0"}
-        />
+      <div>
+        <p>Offset</p>
+        <div className="flex gap-3">
+          <InputField
+            label={"x"}
+            type="number"
+            name={"offset-x"}
+            value={noiseData.offset[0].toFixed(2)}
+            onChange={(e) => {
+              const val = Number(e.currentTarget.value);
+              setNoiseData((prev) => ({
+                ...prev,
+                offset: [val, prev.offset[1]],
+              }));
+            }}
+            placeholder={"0"}
+          />
+          <InputField
+            label={"y"}
+            type="number"
+            name={"offset-y"}
+            value={noiseData.offset[1].toFixed(2)}
+            onChange={(e) => {
+              const val = Number(e.currentTarget.value);
+              setNoiseData((prev) => ({
+                ...prev,
+                offset: [prev.offset[0], val],
+              }));
+            }}
+            placeholder={"0"}
+          />
+        </div>
       </div>
-      <div className="flex gap-3">
-        <InputField
-          label={"x"}
-          type="number"
-          name={"size-x"}
-          value={noiseData.offset[0].toFixed(2)}
-          onChange={(e) =>
-            setNoiseData((prev) => ({
-              ...prev,
-              offset: [Number(e.currentTarget.value), prev.offset[1]],
-            }))
-          }
-          placeholder={"0"}
-        />
-        <InputField
-          label={"y"}
-          type="number"
-          name={"size-y"}
-          value={noiseData.offset[1].toFixed(2)}
-          onChange={(e) =>
-            setNoiseData((prev) => ({
-              ...prev,
-              offset: [prev.offset[0], Number(e.currentTarget.value)],
-            }))
-          }
-          placeholder={"0"}
-        />
+      <div>
+        <p>Size</p>
+        <div className="flex gap-3">
+          <InputField
+            label={"x"}
+            type="number"
+            name={"size-x"}
+            value={noiseData.offset[0].toFixed(2)}
+            onChange={(e) => {
+              const val = Number(e.currentTarget.value);
+              setNoiseData((prev) => ({
+                ...prev,
+                offset: [val, prev.offset[1]],
+              }));
+            }}
+            placeholder={"0"}
+          />
+          <InputField
+            label={"y"}
+            type="number"
+            name={"size-y"}
+            value={noiseData.offset[1].toFixed(2)}
+            onChange={(e) => {
+              const val = Number(e.currentTarget.value);
+              setNoiseData((prev) => ({
+                ...prev,
+                offset: [prev.offset[0], val],
+              }));
+            }}
+            placeholder={"0"}
+          />
+        </div>
       </div>
       <InputField
         label={"Scale"}
@@ -72,10 +82,8 @@ export const NoiseFields = ({ noiseData, setNoiseData }: NoiseFieldsProps) => {
         name={"scale"}
         value={noiseData.scale.toFixed(2)}
         onChange={(e) => {
-          setNoiseData((prev) => ({
-            ...prev,
-            scale: Number(e.currentTarget.value),
-          }));
+          const val = Number(e.currentTarget.value);
+          setNoiseData((prev) => ({ ...prev, scale: val }));
         }}
       />
     </div>

@@ -15,11 +15,16 @@ const INIT_FRACTAL: FractalProps = {
 type FractalBGProps = {
   noiseData: NoiseProps;
   noiseMode: NoiseModes;
+  seed: string;
+  worleySeeds: number;
 };
 
-export const FractalBG = ({ noiseData, noiseMode }: FractalBGProps) => {
-  const [worleySeeds, setWorleySeeds] = useState(5);
-  const [seed, setSeed] = useState(crypto.randomUUID());
+export const FractalBG = ({
+  noiseData,
+  seed,
+  worleySeeds,
+  noiseMode,
+}: FractalBGProps) => {
   const [fractalData, setFractalData] = useState<FractalProps>(INIT_FRACTAL);
 
   const noiseMap = useMemo(() => {
@@ -29,7 +34,7 @@ export const FractalBG = ({ noiseData, noiseMode }: FractalBGProps) => {
         noiseClass = new PerlinNoise(seed);
         break;
       case NoiseModes.WORLEY:
-        noiseClass = new WorleyNoise(worleySeeds);
+        noiseClass = new WorleyNoise(worleySeeds, seed);
         break;
     }
 
@@ -38,7 +43,7 @@ export const FractalBG = ({ noiseData, noiseMode }: FractalBGProps) => {
       fractalData,
       noiseClass.noise.bind(noiseClass),
     ).noiseMap(noiseData);
-  }, [worleySeeds, noiseData]);
+  }, [worleySeeds, noiseData, noiseMode, seed, fractalData]);
 
   return <Canvas noiseMap={noiseMap} size={noiseData.size} />;
 };

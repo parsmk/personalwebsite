@@ -5,14 +5,14 @@ import { WorleyNoise } from "../../../scripts/Worley";
 
 type WorleyBGProps = {
   noiseData: NoiseProps;
+  seed: string;
 };
 
-export const WorleyBG = ({ noiseData }: WorleyBGProps) => {
+export const WorleyBG = ({ noiseData, seed }: WorleyBGProps) => {
   const [worleySeeds] = useState(1);
-  const [s, setS] = useState(crypto.randomUUID());
 
   const noiseMap = useMemo(
-    () => new WorleyNoise(worleySeeds, s).noiseMap(noiseData),
+    () => new WorleyNoise(worleySeeds, seed).noiseMap(noiseData),
     [worleySeeds, noiseData],
   );
 

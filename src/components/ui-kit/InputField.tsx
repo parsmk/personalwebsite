@@ -9,6 +9,7 @@ interface Props {
   required?: boolean;
   inputClasses?: string;
   onChange?: ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement>;
 }
 
 export const InputField = ({
@@ -16,9 +17,11 @@ export const InputField = ({
   name,
   placeholder,
   type = "text",
+  value,
   required = false,
   inputClasses = "",
   onChange,
+  onBlur,
 }: Props) => {
   const _inputClasses = `
     p-2 my-1 w-full rounded-lg outline-1 outline-accent/20
@@ -26,6 +29,14 @@ export const InputField = ({
     transition-all
     ${inputClasses}
   `;
+
+  const onKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement & HTMLTextAreaElement>,
+  ) => {
+    if (e.key === "Enter") {
+      e.currentTarget.blur();
+    }
+  };
 
   return (
     <div className="w-full">
@@ -38,17 +49,23 @@ export const InputField = ({
           name={name}
           className={_inputClasses}
           placeholder={placeholder}
+          value={value}
           required={required}
           onChange={onChange}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
         />
       ) : (
         <input
           name={name}
           type={type}
+          value={value}
           className={_inputClasses}
           placeholder={placeholder}
           required={required}
           onChange={onChange}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
         />
       )}
     </div>
