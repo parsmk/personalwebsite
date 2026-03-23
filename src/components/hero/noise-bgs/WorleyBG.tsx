@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { NoiseProps } from "../../../scripts/NoiseUtil";
 import { Canvas } from "./Canvas";
 import { WorleyNoise } from "../../../scripts/Worley";
-import type { RGB } from "../../../scripts/ColorMap";
+import { WHITE, type RGB } from "../../../scripts/ColorMap";
 
 type WorleyBGProps = {
   noiseData: NoiseProps;
@@ -22,5 +22,12 @@ export const WorleyBG = ({
     [worleySeeds, noiseData, color],
   );
 
-  return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;
+  return (
+    <Canvas
+      noiseMap={noiseMap}
+      size={noiseData.size}
+      colorMin={color}
+      colorMax={WHITE}
+    />
+  );
 };

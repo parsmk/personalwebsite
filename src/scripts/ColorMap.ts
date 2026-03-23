@@ -2,6 +2,8 @@ import { index } from "./NoiseUtil";
 
 export type RGB = { r: number; g: number; b: number };
 
+export const WHITE: RGB = { r: 255, g: 255, b: 255 };
+
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
 
 const lerpColor = (a: RGB, b: RGB, t: number): RGB => {
@@ -12,15 +14,11 @@ const lerpColor = (a: RGB, b: RGB, t: number): RGB => {
   };
 };
 
-const sampleColorMap = (value: number, color: RGB): RGB => {
-  const t = Math.max(0, Math.min(1, value));
-  return lerpColor(color, { r: 255, g: 255, b: 255 }, t);
-};
-
 export const applyColorMap = (
   noise: number[],
   size: [number, number],
-  color: RGB,
+  colorMin: RGB,
+  colorMax: RGB,
 ): Uint8ClampedArray<ArrayBuffer> => {
   const pixels = new Uint8ClampedArray(
     size[0] * size[1] * 4,
@@ -28,7 +26,11 @@ export const applyColorMap = (
   for (let y = 0; y < size[1]; y++) {
     for (let x = 0; x < size[0]; x++) {
       const i = index(size, x, y);
-      const { r, g, b } = sampleColorMap(noise[i], color);
+      const { r, g, b } = lerpColor(
+        colorMin,
+        colorMax,
+        Math.max(0, Math.min(1, noise[i])),
+      );
       const p = i * 4;
       pixels[p] = r;
       pixels[p + 1] = g;

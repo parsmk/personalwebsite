@@ -5,7 +5,7 @@ import { Canvas } from "./Canvas";
 import type { NoiseProps } from "../../../scripts/NoiseUtil";
 import { NoiseModes } from "../HeroBG";
 import { PerlinNoise } from "../../../scripts/Perlin";
-import type { RGB } from "../../../scripts/ColorMap";
+import { WHITE, type RGB } from "../../../scripts/ColorMap";
 
 const INIT_FRACTAL: FractalProps = {
   lacunarity: 3,
@@ -48,5 +48,12 @@ export const FractalBG = ({
     ).noiseMap(noiseData);
   }, [worleySeeds, noiseData, noiseMode, seed, fractalData, color]);
 
-  return <Canvas noiseMap={noiseMap} size={noiseData.size} color={color} />;
+  return (
+    <Canvas
+      noiseMap={noiseMap}
+      size={noiseData.size}
+      colorMin={noiseMode === NoiseModes.WORLEY ? color : WHITE}
+      colorMax={noiseMode === NoiseModes.WORLEY ? WHITE : color}
+    />
+  );
 };

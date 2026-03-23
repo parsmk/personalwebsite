@@ -4,10 +4,11 @@ import { applyColorMap, type RGB } from "../../../scripts/ColorMap";
 type CanvasProps = {
   noiseMap: number[];
   size: [number, number];
-  color: RGB;
+  colorMin: RGB;
+  colorMax: RGB;
 };
 
-export const Canvas = ({ noiseMap, size, color }: CanvasProps) => {
+export const Canvas = ({ noiseMap, size, colorMin, colorMax }: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -16,10 +17,10 @@ export const Canvas = ({ noiseMap, size, color }: CanvasProps) => {
     if (!ctxRef.current) ctxRef.current = canvasRef.current.getContext("2d");
     const ctx = ctxRef.current;
     if (!ctx) return;
-    const pixels = applyColorMap(noiseMap, size, color);
+    const pixels = applyColorMap(noiseMap, size, colorMin, colorMax);
     const imageData = new ImageData(pixels, size[0], size[1]);
     ctx.putImageData(imageData, 0, 0);
-  }, [noiseMap, size, color]);
+  }, [noiseMap, size, colorMin, colorMax]);
   return (
     <canvas
       ref={canvasRef}

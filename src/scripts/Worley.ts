@@ -53,7 +53,10 @@ export class WorleyNoise {
       for (let x = 0; x < size[0]; x++) {
         const sampleX = (x + offset[0]) / scale;
         const sampleY = (y + offset[1]) / scale;
-        map[index(size, x, y)] = this.noise(sampleX, sampleY);
+        const v = this.noise(sampleX, sampleY);
+        map[index(size, x, y)] = v;
+        if (v < min) min = v;
+        if (v > max) max = v;
       }
     }
     return normalize(map, max, min);
