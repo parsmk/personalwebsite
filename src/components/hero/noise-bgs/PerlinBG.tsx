@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
-import { Canvas } from "./Canvas";
-import { PerlinNoise } from "../../../scripts/noise/Perlin";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
+import { Canvas } from "./Canvas";
+import { NoiseModes } from "../HeroBG";
 
 type PerlinBGProps = {
   noiseData: NoiseProps;
@@ -11,13 +11,41 @@ type PerlinBGProps = {
 };
 
 export const PerlinBG = ({ noiseData, seed, color }: PerlinBGProps) => {
-  const noiseMap = useMemo(
-    () => new PerlinNoise(seed).noiseMap(noiseData),
-    [noiseData, seed],
-  );
+  const [noiseState, setNoiseState] = useState<{
+    map: number[];
+    mode: NoiseModes;
+  } | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+  const requestId = useRef(0);
+  useEffect(() => {
+    workerRef.current = new Worker(
+      new URL("../../../scripts/workers/perlin.worker.ts", import.meta.url),
+      { type: "module" },
+    );
+
+    workerRef.current.onmessage = (e) => {
+      if (e.data.id === requestId.current) {
+        setNoiseState({ map: e.data.result, mode: NoiseModes.PERLIN });
+      }
+    };
+
+    return () => workerRef.current?.terminate();
+  }, []);
+
+  useEffect(() => {
+    const id = ++requestId.current;
+    workerRef.current?.postMessage({
+      id,
+      seed,
+      noiseData,
+    });
+  }, [seed, noiseData]);
+
+  if (!noiseState) return null;
+
   return (
     <Canvas
-      noiseMap={noiseMap}
+      noiseMap={noiseState.map}
       size={noiseData.size}
       colorMin={color}
       colorMax={WHITE}

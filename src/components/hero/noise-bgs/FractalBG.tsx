@@ -1,20 +1,9 @@
-import { useMemo, useState } from "react";
-import {
-  FractalNoise,
-  type FractalProps,
-} from "../../../scripts/noise/Fractal";
-import { WorleyNoise } from "../../../scripts/noise/Worley";
-import { Canvas } from "./Canvas";
+import { useEffect, useRef, useState } from "react";
+import { type FractalProps } from "../../../scripts/noise/Fractal";
 import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
-import { NoiseModes } from "../HeroBG";
-import { PerlinNoise } from "../../../scripts/noise/Perlin";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
-
-const INIT_FRACTAL: FractalProps = {
-  lacunarity: 3,
-  persistence: 0.5,
-  octaves: 4,
-};
+import { Canvas } from "./Canvas";
+import { NoiseModes } from "../HeroBG";
 
 type FractalBGProps = {
   noiseData: NoiseProps;
@@ -22,41 +11,64 @@ type FractalBGProps = {
   seed: string;
   worleySeeds: number;
   color: RGB;
+  fractalData: FractalProps;
 };
-
 export const FractalBG = ({
   noiseData,
   seed,
   worleySeeds,
   noiseMode,
   color,
+  fractalData,
 }: FractalBGProps) => {
-  const [fractalData, setFractalData] = useState<FractalProps>(INIT_FRACTAL);
+  const [noiseState, setNoiseState] = useState<{
+    map: number[];
+    mode: NoiseModes;
+  } | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+  const requestId = useRef(0);
 
-  const noiseMap = useMemo(() => {
-    let noiseClass;
-    switch (noiseMode) {
-      case NoiseModes.PERLIN:
-        noiseClass = new PerlinNoise(seed);
-        break;
-      case NoiseModes.WORLEY:
-        noiseClass = new WorleyNoise(worleySeeds, seed);
-        break;
-    }
+  const colors: Record<NoiseModes, [RGB, RGB]> = {
+    [NoiseModes.WORLEY]: [color, WHITE],
+    [NoiseModes.PERLIN]: [WHITE, color],
+  };
 
-    return new FractalNoise(
+  // Create worker on mount, terminate on unmount
+  useEffect(() => {
+    workerRef.current = new Worker(
+      new URL("../../../scripts/workers/fractal.worker.ts", import.meta.url),
+      { type: "module" },
+    );
+
+    workerRef.current.onmessage = (e) => {
+      if (e.data.id === requestId.current) {
+        setNoiseState({ map: e.data.result, mode: e.data.noiseMode });
+      }
+    };
+
+    return () => workerRef.current?.terminate();
+  }, []);
+
+  useEffect(() => {
+    const id = ++requestId.current;
+    workerRef.current?.postMessage({
+      id,
+      noiseMode,
       seed,
+      worleySeeds,
+      noiseData,
       fractalData,
-      noiseClass.noise.bind(noiseClass),
-    ).noiseMap(noiseData);
-  }, [worleySeeds, noiseData, noiseMode, seed, fractalData, color]);
+    });
+  }, [noiseMode, seed, worleySeeds, noiseData]);
+
+  if (!noiseState) return null;
 
   return (
     <Canvas
-      noiseMap={noiseMap}
+      noiseMap={noiseState.map}
       size={noiseData.size}
-      colorMin={noiseMode === NoiseModes.WORLEY ? color : WHITE}
-      colorMax={noiseMode === NoiseModes.WORLEY ? WHITE : color}
+      colorMin={colors[noiseState.mode][0]}
+      colorMax={colors[noiseState.mode][1]}
     />
   );
 };

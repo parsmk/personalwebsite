@@ -1,15 +1,18 @@
-import React, { useState, useTransition, useEffect, useRef } from "react";
-import { LoadingBG } from "./noise-bgs/LoadingBG";
+import { useState, useRef } from "react";
+import { RgbColorPicker } from "react-colorful";
+
+import type { RGB } from "../../scripts/ColorMap";
+import type { FractalProps } from "../../scripts/noise/Fractal";
+import type { NoiseProps } from "../../scripts/noise/NoiseUtil";
+
+import { PerlinBG } from "./noise-bgs/PerlinBG";
+import { FractalBG } from "./noise-bgs/FractalBG";
 import { WorleyBG } from "./noise-bgs/WorleyBG";
 import { FieldCard } from "./noise-bgs/FieldCard";
 import { NoiseFields } from "./noise-bgs/NoiseFields";
-import type { NoiseProps } from "../../scripts/noise/NoiseUtil";
-import { PerlinBG } from "./noise-bgs/PerlinBG";
-import { FractalBG } from "./noise-bgs/FractalBG";
+
 import { Button } from "../ui-kit/Button";
 import { InputField } from "../ui-kit/InputField";
-import type { RGB } from "../../scripts/ColorMap";
-import { RgbColorPicker } from "react-colorful";
 
 export enum NoiseModes {
   WORLEY = "worley",
@@ -22,6 +25,7 @@ type RenderConfig = {
   noiseMode: NoiseModes;
   fractal: boolean;
   noiseData: NoiseProps;
+  fractalData: FractalProps;
   color: RGB;
 };
 
@@ -35,6 +39,11 @@ const INIT_CONFIG: RenderConfig = {
     scale: 250,
     size: [window.innerWidth, window.innerHeight],
   },
+  fractalData: {
+    lacunarity: 3,
+    persistence: 0.5,
+    octaves: 4,
+  },
   color: { r: 4, g: 52, b: 44 },
 };
 
@@ -43,17 +52,6 @@ export const HeroBG = () => {
   const [renderConfig, setRenderConfig] = useState<RenderConfig>(INIT_CONFIG);
   const pendingRef = useRef<Partial<RenderConfig>>({});
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [bg, setBG] = useState<React.ReactNode>(
-    <FractalBG
-      seed={INIT_CONFIG.seed}
-      worleySeeds={INIT_CONFIG.worleySeeds}
-      noiseMode={INIT_CONFIG.noiseMode}
-      noiseData={INIT_CONFIG.noiseData}
-      color={INIT_CONFIG.color}
-    />,
-  );
-  const [isPending, startTransition] = useTransition();
 
   const editPush = (changes: Partial<RenderConfig>) => {
     setEditConfig((prev) => ({ ...prev, ...changes }));
@@ -66,38 +64,35 @@ export const HeroBG = () => {
     }, 100);
   };
 
-  useEffect(() => {
-    const { fractal, seed, worleySeeds, noiseData, noiseMode, color } =
-      renderConfig;
-    startTransition(() => {
-      if (fractal)
-        return setBG(
-          <FractalBG
-            worleySeeds={worleySeeds}
-            seed={seed}
-            noiseData={noiseData}
-            noiseMode={noiseMode}
-            color={color}
-          />,
-        );
+  const {
+    fractal,
+    fractalData,
+    seed,
+    worleySeeds,
+    noiseData,
+    noiseMode,
+    color,
+  } = renderConfig;
 
-      switch (noiseMode) {
-        case NoiseModes.WORLEY:
-          return setBG(
-            <WorleyBG
-              seed={seed}
-              worleySeeds={worleySeeds}
-              noiseData={noiseData}
-              color={color}
-            />,
-          );
-        case NoiseModes.PERLIN:
-          return setBG(
-            <PerlinBG seed={seed} noiseData={noiseData} color={color} />,
-          );
-      }
-    });
-  }, [renderConfig]);
+  const bg = fractal ? (
+    <FractalBG
+      worleySeeds={worleySeeds}
+      seed={seed}
+      noiseData={noiseData}
+      noiseMode={noiseMode}
+      color={color}
+      fractalData={fractalData}
+    />
+  ) : noiseMode === NoiseModes.WORLEY ? (
+    <WorleyBG
+      seed={seed}
+      worleySeeds={worleySeeds}
+      noiseData={noiseData}
+      color={color}
+    />
+  ) : (
+    <PerlinBG seed={seed} noiseData={noiseData} color={color} />
+  );
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
@@ -132,7 +127,7 @@ export const HeroBG = () => {
             />
           </div>
         </FieldCard>
-        {bg} {isPending && <LoadingBG />}
+        {bg}
         <div className="absolute flex gap-2 bottom-10 left-1/2 -translate-x-1/2 bg-white/40 hover:bg-white/50 transition py-3 px-10 rounded-full">
           <Button
             variant="outline"
