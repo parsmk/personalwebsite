@@ -20,7 +20,6 @@ export enum NoiseModes {
 }
 
 type RenderConfig = {
-  seed: string;
   worleySeeds: number;
   noiseMode: NoiseModes;
   fractal: boolean;
@@ -30,11 +29,11 @@ type RenderConfig = {
 };
 
 const INIT_CONFIG: RenderConfig = {
-  seed: crypto.randomUUID(),
   worleySeeds: 2,
   noiseMode: NoiseModes.PERLIN,
   fractal: true,
   noiseData: {
+    seed: crypto.randomUUID(),
     offset: [0, 0],
     scale: 250,
     size: [window.innerWidth, window.innerHeight],
@@ -64,34 +63,21 @@ export const HeroBG = () => {
     }, 100);
   };
 
-  const {
-    fractal,
-    fractalData,
-    seed,
-    worleySeeds,
-    noiseData,
-    noiseMode,
-    color,
-  } = renderConfig;
+  const { fractal, fractalData, worleySeeds, noiseData, noiseMode, color } =
+    renderConfig;
 
   const bg = fractal ? (
     <FractalBG
       worleySeeds={worleySeeds}
-      seed={seed}
       noiseData={noiseData}
       noiseMode={noiseMode}
       color={color}
       fractalData={fractalData}
     />
   ) : noiseMode === NoiseModes.WORLEY ? (
-    <WorleyBG
-      seed={seed}
-      worleySeeds={worleySeeds}
-      noiseData={noiseData}
-      color={color}
-    />
+    <WorleyBG worleySeeds={worleySeeds} noiseData={noiseData} color={color} />
   ) : (
-    <PerlinBG seed={seed} noiseData={noiseData} color={color} />
+    <PerlinBG noiseData={noiseData} color={color} />
   );
 
   return (
@@ -103,8 +89,12 @@ export const HeroBG = () => {
             setNoiseData={(next) => editPush({ noiseData: next })}
           />
           <InputField
-            value={editConfig.seed}
-            onChange={(e) => editPush({ seed: e.currentTarget.value })}
+            value={editConfig.noiseData.seed}
+            onChange={(e) =>
+              editPush({
+                noiseData: { ...noiseData, seed: e.currentTarget.value },
+              })
+            }
             label={"Seed"}
             name={"seed"}
           />

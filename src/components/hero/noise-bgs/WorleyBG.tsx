@@ -6,17 +6,11 @@ import { NoiseModes } from "../HeroBG";
 
 type WorleyBGProps = {
   noiseData: NoiseProps;
-  seed: string;
   worleySeeds: number;
   color: RGB;
 };
 
-export const WorleyBG = ({
-  noiseData,
-  seed,
-  worleySeeds,
-  color,
-}: WorleyBGProps) => {
+export const WorleyBG = ({ noiseData, worleySeeds, color }: WorleyBGProps) => {
   const [noiseState, setNoiseState] = useState<{
     map: number[];
     mode: NoiseModes;
@@ -43,10 +37,9 @@ export const WorleyBG = ({
     workerRef.current?.postMessage({
       id,
       worleySeeds,
-      seed,
       noiseData,
     });
-  }, [seed, noiseData]);
+  }, [noiseData]);
 
   if (!noiseState) return null;
 

@@ -6,11 +6,10 @@ import { NoiseModes } from "../HeroBG";
 
 type PerlinBGProps = {
   noiseData: NoiseProps;
-  seed: string;
   color: RGB;
 };
 
-export const PerlinBG = ({ noiseData, seed, color }: PerlinBGProps) => {
+export const PerlinBG = ({ noiseData, color }: PerlinBGProps) => {
   const [noiseState, setNoiseState] = useState<{
     map: number[];
     mode: NoiseModes;
@@ -36,10 +35,9 @@ export const PerlinBG = ({ noiseData, seed, color }: PerlinBGProps) => {
     const id = ++requestId.current;
     workerRef.current?.postMessage({
       id,
-      seed,
       noiseData,
     });
-  }, [seed, noiseData]);
+  }, [noiseData]);
 
   if (!noiseState) return null;
 

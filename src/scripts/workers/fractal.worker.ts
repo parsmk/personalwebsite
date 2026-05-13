@@ -3,17 +3,17 @@ import { PerlinNoise } from "../noise/Perlin";
 import { WorleyNoise } from "../noise/Worley";
 
 self.onmessage = (e) => {
-  const { id, noiseMode, seed, worleySeeds, noiseData, fractalData } = e.data;
+  const { id, noiseMode, worleySeeds, noiseData, fractalData } = e.data;
 
   let noiseClass;
   if (noiseMode === "perlin") {
-    noiseClass = new PerlinNoise(seed);
+    noiseClass = new PerlinNoise(noiseData.seed);
   } else {
-    noiseClass = new WorleyNoise(worleySeeds, seed);
+    noiseClass = new WorleyNoise(worleySeeds, noiseData.seed);
   }
 
   const fractal = new FractalNoise(
-    seed,
+    noiseData.seed,
     fractalData,
     noiseClass.noise.bind(noiseClass),
   );

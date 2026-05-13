@@ -3,9 +3,7 @@ import {
   index,
   makeRNG,
   normalize,
-  prngNext,
   type NoiseProps,
-  type RNG,
 } from "./NoiseUtil";
 
 export class WorleyNoise {

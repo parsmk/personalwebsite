@@ -63,11 +63,12 @@ export class PerlinNoise {
     const smoothX = ease(deltaX);
     const smoothY = ease(deltaY);
 
-    return (
-      (lerp(lerp(dot00, dot10, smoothX), lerp(dot01, dot11, smoothX), smoothY) +
-        1) /
-      2
+    const lerped = lerp(
+      lerp(dot00, dot10, smoothX),
+      lerp(dot01, dot11, smoothX),
+      smoothY,
     );
+    return (lerped + 1) / 2;
   }
 
   noiseMap({ offset, scale, size }: NoiseProps): number[] {

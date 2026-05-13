@@ -8,14 +8,12 @@ import { NoiseModes } from "../HeroBG";
 type FractalBGProps = {
   noiseData: NoiseProps;
   noiseMode: NoiseModes;
-  seed: string;
   worleySeeds: number;
   color: RGB;
   fractalData: FractalProps;
 };
 export const FractalBG = ({
   noiseData,
-  seed,
   worleySeeds,
   noiseMode,
   color,
@@ -54,12 +52,11 @@ export const FractalBG = ({
     workerRef.current?.postMessage({
       id,
       noiseMode,
-      seed,
       worleySeeds,
       noiseData,
       fractalData,
     });
-  }, [noiseMode, seed, worleySeeds, noiseData]);
+  }, [noiseMode, worleySeeds, noiseData]);
 
   if (!noiseState) return null;
 

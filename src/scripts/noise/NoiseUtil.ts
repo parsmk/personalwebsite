@@ -4,6 +4,7 @@ export type NoiseProps = {
   offset: [x: number, y: number];
   scale: number;
   size: [x: number, y: number];
+  seed: string;
 };
 
 export type RNG = () => number;
