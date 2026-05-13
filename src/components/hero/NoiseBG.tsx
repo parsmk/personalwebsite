@@ -8,10 +8,6 @@ import { PerlinBG } from "./noise-bgs/PerlinBG";
 import { FractalBG } from "./noise-bgs/FractalBG";
 import { WorleyBG } from "./noise-bgs/WorleyBG";
 
-import { NoiseFields } from "./fields/NoiseFields";
-import { FractalFields } from "./fields/FractalFields";
-import { ModeFields } from "./fields/ModeFields";
-
 export type RenderConfig = {
   worleySeeds: number;
   noiseMode: NoiseModes;
@@ -39,7 +35,7 @@ const INIT_CONFIG: RenderConfig = {
   color: { r: 4, g: 52, b: 44 },
 };
 
-export const HeroBG = () => {
+export const NoiseBG = () => {
   const [editConfig, setEditConfig] = useState<RenderConfig>(INIT_CONFIG);
   const [renderConfig, setRenderConfig] = useState<RenderConfig>(INIT_CONFIG);
   const pendingRef = useRef<Partial<RenderConfig>>({});
@@ -75,21 +71,7 @@ export const HeroBG = () => {
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
-      <div className="absolute inset-x-0 top-0 h-screen">
-        <NoiseFields
-          config={renderConfig}
-          setConfig={(next) => editPush(next)}
-        />
-        <FractalFields
-          config={renderConfig}
-          setConfig={(next) => editPush(next)}
-        />
-        <ModeFields
-          config={renderConfig}
-          setConfig={(next) => editPush(next)}
-        />
-        {bg}
-      </div>
+      <div className="absolute inset-x-0 top-0 h-screen">{bg}</div>
     </div>
   );
 };

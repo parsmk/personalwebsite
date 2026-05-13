@@ -1,9 +1,9 @@
-import { HeroBG } from "./HeroBG";
+import { NoiseBG } from "./NoiseBG";
 
 export const Hero = () => {
   return (
     <div className="relative flex flex-col h-full w-full overflow-clip">
-      <HeroBG />
+      <NoiseBG />
       <div className="flex flex-row items-center justify-center h-[50%] gap-2">
         <div className="flex flex-col justify-center items-end rounded-tl-full size-100 z-10">
           <div className="w-[80%]">
