@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { type FractalProps } from "../../../scripts/noise/Fractal";
-import type { NoiseProps } from "../../../scripts/noise/NoiseUtil";
+import { NoiseModes, type NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 import { Canvas } from "./Canvas";
-import { NoiseModes } from "../HeroBG";
 
 type FractalBGProps = {
   noiseData: NoiseProps;

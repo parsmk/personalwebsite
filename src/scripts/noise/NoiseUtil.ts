@@ -7,6 +7,11 @@ export type NoiseProps = {
   seed: string;
 };
 
+export enum NoiseModes {
+  WORLEY = "worley",
+  PERLIN = "perlin",
+}
+
 export type RNG = () => number;
 
 export const makeRNG = (seed: string): RNG => seedrandom(seed);
