@@ -8,6 +8,7 @@ import { Button } from "../../ui-kit/Button";
 import { IncermentField } from "../../ui-kit/IncrementField";
 import { InputField } from "../../ui-kit/InputField";
 import { NumberField } from "../../ui-kit/NumberField";
+import { SliderField } from "../../ui-kit/SliderField";
 
 import type { RenderConfig } from "../NoiseBG";
 import { ControlPanelSubtitle } from "./ControlPanelSubtitle";
@@ -68,10 +69,7 @@ export const NoiseControlPanel = ({
             />
           </div>
         </div>
-        <div>
-          <p className="text-white/50 text-sm">Scale</p>
-          <div>SLIDER</div>
-        </div>
+        <SliderField name="scale" label="Scale" min={0} max={1000} />
       </div>
 
       <div className="flex flex-col gap-2 w-full">
@@ -116,16 +114,26 @@ export const NoiseControlPanel = ({
           </ControlPanelSubtitle>
           <div className="flex gap-1.5 items-end">
             <div className="grow min-w-0">
-              <NumberField label="Octaves" name="octaves" variant="primary" />
-              <NumberField
+              <SliderField
+                label="Octaves"
+                name="octaves"
+                min={1}
+                max={8}
+                step={1}
+              />
+              <SliderField
                 label="Persistence"
                 name="persistence"
-                variant="primary"
+                min={0}
+                max={1}
+                step={0.01}
               />
-              <NumberField
+              <SliderField
                 label="Lacunarity"
                 name="lacunarity"
-                variant="primary"
+                min={1}
+                max={4}
+                step={0.01}
               />
             </div>
           </div>
