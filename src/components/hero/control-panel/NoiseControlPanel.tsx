@@ -1,10 +1,14 @@
 import { rgbToCSS, rgbToHex } from "../../../scripts/ColorMap";
 import { NoiseMode } from "../../../scripts/noise/NoiseUtil";
+
 import { Copy } from "../../svgs/Copy";
 import { Dice } from "../../svgs/Dice";
+
 import { Button } from "../../ui-kit/Button";
+import { IncermentField } from "../../ui-kit/IncrementField";
 import { InputField } from "../../ui-kit/InputField";
 import { NumberField } from "../../ui-kit/NumberField";
+
 import type { RenderConfig } from "../NoiseBG";
 import { ControlPanelSubtitle } from "./ControlPanelSubtitle";
 import { NoiseModePill } from "./NoiseModePill";
@@ -84,10 +88,9 @@ export const NoiseControlPanel = ({
           </Button>
         </div>
         {noiseMode === NoiseMode.WORLEY ? (
-          <NumberField
+          <IncermentField
             label="Worley points"
             name="worleySeeds"
-            disabled
             variant="primary"
           />
         ) : null}

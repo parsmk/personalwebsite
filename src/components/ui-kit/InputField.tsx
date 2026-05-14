@@ -42,7 +42,7 @@ export const InputField = ({
   };
   const inputClasses = "grow focus:outline-none p-2";
 
-  const adornmentClasses = "text-xs ml-3 mr-1 self-center";
+  const adornmentClasses = "text-xs self-center";
 
   const variantClasses: Record<InputFieldVariants, string> = {
     primary: `outline-primary/75 bg-secondary/15 text-white`,
@@ -65,7 +65,9 @@ export const InputField = ({
         className={`${variantClasses[variant]} flex outline-1 my-1 grow rounded-lg transition-all duration-300`}
       >
         {leftAdornement && (
-          <div className={adornmentClasses}>{leftAdornement}</div>
+          <div className={`${adornmentClasses} ml-3 mr-1`}>
+            {leftAdornement}
+          </div>
         )}
         {multiline ? (
           <textarea
@@ -94,7 +96,9 @@ export const InputField = ({
           />
         )}
         {rightAdornement && (
-          <div className={adornmentClasses}>{rightAdornement}</div>
+          <div className={`${adornmentClasses} mr-3 ml-1`}>
+            {rightAdornement}
+          </div>
         )}
       </div>
     </div>
