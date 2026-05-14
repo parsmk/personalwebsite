@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { type FractalProps } from "../../../scripts/noise/Fractal";
-import { NoiseModes, type NoiseProps } from "../../../scripts/noise/NoiseUtil";
+import { NoiseMode, type NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 import { Canvas } from "./Canvas";
 
 type FractalBGProps = {
   noiseData: NoiseProps;
-  noiseMode: NoiseModes;
+  noiseMode: NoiseMode;
   worleySeeds: number;
   color: RGB;
   fractalData: FractalProps;
@@ -20,14 +20,14 @@ export const FractalBG = ({
 }: FractalBGProps) => {
   const [noiseState, setNoiseState] = useState<{
     map: number[];
-    mode: NoiseModes;
+    mode: NoiseMode;
   } | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const requestId = useRef(0);
 
-  const colors: Record<NoiseModes, [RGB, RGB]> = {
-    [NoiseModes.WORLEY]: [color, WHITE],
-    [NoiseModes.PERLIN]: [WHITE, color],
+  const colors: Record<NoiseMode, [RGB, RGB]> = {
+    [NoiseMode.WORLEY]: [color, WHITE],
+    [NoiseMode.PERLIN]: [WHITE, color],
   };
 
   // Create worker on mount, terminate on unmount

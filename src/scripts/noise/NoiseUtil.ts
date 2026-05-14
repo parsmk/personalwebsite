@@ -7,7 +7,7 @@ export type NoiseProps = {
   seed: string;
 };
 
-export enum NoiseModes {
+export enum NoiseMode {
   WORLEY = "worley",
   PERLIN = "perlin",
 }

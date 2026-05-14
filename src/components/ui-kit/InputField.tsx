@@ -1,37 +1,38 @@
 import type { ChangeEventHandler } from "react";
 
-interface Props {
-  label: string;
+export type InputFieldVariants = "primary" | "outline";
+
+type InputFieldProps = {
   name: string;
+  label?: string;
   placeholder?: string;
-  type?: "text" | "number" | "multiline";
   value?: string;
   required?: boolean;
-  inputClasses?: string;
-  optional?: boolean;
+  leftAdornement?: React.ReactNode;
+  rightAdornement?: React.ReactNode;
+  multiline?: boolean;
+  disabled?: boolean;
+  variant?: InputFieldVariants;
+  showOptional?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement>;
-}
+};
 
 export const InputField = ({
-  label,
   name,
+  label,
   placeholder,
-  type = "text",
   value,
   required = false,
-  inputClasses = "",
-  optional = false,
+  leftAdornement,
+  rightAdornement,
+  multiline = false,
+  disabled = false,
+  variant = "outline",
+  showOptional = false,
   onChange,
   onBlur,
-}: Props) => {
-  const _inputClasses = `
-    p-2 my-1 w-full rounded-lg outline-1 outline-accent/20
-    focus:outline-accent/75 hover:outline-accent/75 hover:shadow-md hover:shadow-primary/25
-    transition-all
-    ${inputClasses}
-  `;
-
+}: InputFieldProps) => {
   const onKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement & HTMLTextAreaElement>,
   ) => {
@@ -39,39 +40,63 @@ export const InputField = ({
       e.currentTarget.blur();
     }
   };
+  const inputClasses = "grow focus:outline-none p-2";
+
+  const adornmentClasses = "text-xs ml-3 mr-1 self-center";
+
+  const variantClasses: Record<InputFieldVariants, string> = {
+    primary: `outline-primary/75 bg-secondary/15 text-white`,
+    outline: `outline-accent/20 
+      hover:outline-accent/75 hover:shadow-md hover:shadow-primary/25
+      focus-within:outline-accent/75 focus-within:shadow-md focus-within:shadow-primary/25`,
+  };
 
   return (
-    <div className="w-full">
-      <label className="text-right text-sm" htmlFor={name}>
-        {label}
-        {!required && optional ? (
-          <span className="text-accent/50"> — optional</span>
-        ) : null}
-      </label>
-      {type === "multiline" ? (
-        <textarea
-          name={name}
-          className={_inputClasses}
-          placeholder={placeholder}
-          value={value}
-          required={required}
-          onChange={onChange}
-          onBlur={onBlur}
-          onKeyDown={onKeyDown}
-        />
-      ) : (
-        <input
-          name={name}
-          type={type}
-          value={value}
-          className={_inputClasses}
-          placeholder={placeholder}
-          required={required}
-          onChange={onChange}
-          onBlur={onBlur}
-          onKeyDown={onKeyDown}
-        />
+    <div className="h-full flex flex-col">
+      {label && (
+        <label className="text-white/50 text-sm" htmlFor={name}>
+          {label}
+          {!required && showOptional ? (
+            <span className="text-accent/50"> — optional</span>
+          ) : null}
+        </label>
       )}
+      <div
+        className={`${variantClasses[variant]} flex outline-1 my-1 grow rounded-lg transition-all duration-300`}
+      >
+        {leftAdornement && (
+          <div className={adornmentClasses}>{leftAdornement}</div>
+        )}
+        {multiline ? (
+          <textarea
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            required={required}
+            onChange={onChange}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+            className={inputClasses}
+            disabled={disabled}
+          />
+        ) : (
+          <input
+            name={name}
+            type="text"
+            value={value}
+            placeholder={placeholder}
+            required={required}
+            onChange={onChange}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+            className={inputClasses}
+            disabled={disabled}
+          />
+        )}
+        {rightAdornement && (
+          <div className={adornmentClasses}>{rightAdornement}</div>
+        )}
+      </div>
     </div>
   );
 };

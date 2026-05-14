@@ -9,6 +9,7 @@ type ButtonProps = {
   isPending?: boolean;
   variant?: ButtonVariants;
   type?: "submit" | "reset" | "button" | undefined;
+  fullWidth?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -18,6 +19,7 @@ export const Button = ({
   isPending,
   variant = "primary",
   type = "button",
+  fullWidth,
   onClick,
 }: ButtonProps) => {
   const variantClasses: Record<ButtonVariants, string> = {
@@ -48,7 +50,7 @@ export const Button = ({
   return (
     <button
       className={`
-        flex h-[3rem] w-[10rem] justify-center p-3 rounded-xl 
+        flex h-[3rem] items-center justify-center p-3 rounded-xl ${fullWidth ? "w-full" : ""}
         outline-1 shrink-0 
         ${variantClasses[variant]} ${!isPending && !active ? hoverClasses[variant] : ""} ${pendingCX} ${activeCX}
       `}

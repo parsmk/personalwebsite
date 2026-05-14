@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NoiseModes, type NoiseProps } from "../../../scripts/noise/NoiseUtil";
+import { NoiseMode, type NoiseProps } from "../../../scripts/noise/NoiseUtil";
 import { WHITE, type RGB } from "../../../scripts/ColorMap";
 import { Canvas } from "./Canvas";
 
@@ -11,7 +11,7 @@ type PerlinBGProps = {
 export const PerlinBG = ({ noiseData, color }: PerlinBGProps) => {
   const [noiseState, setNoiseState] = useState<{
     map: number[];
-    mode: NoiseModes;
+    mode: NoiseMode;
   } | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const requestId = useRef(0);
@@ -23,7 +23,7 @@ export const PerlinBG = ({ noiseData, color }: PerlinBGProps) => {
 
     workerRef.current.onmessage = (e) => {
       if (e.data.id === requestId.current) {
-        setNoiseState({ map: e.data.result, mode: NoiseModes.PERLIN });
+        setNoiseState({ map: e.data.result, mode: NoiseMode.PERLIN });
       }
     };
 

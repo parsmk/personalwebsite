@@ -1,7 +1,6 @@
 import { useActionState, useState } from "react";
 import { InputField } from "../ui-kit/InputField";
 import { Success } from "./Success";
-import { Spinner } from "../svgs/Spinner";
 import { Button } from "../ui-kit/Button";
 
 type FormState = { error: string } | { success: true } | null;
@@ -33,35 +32,32 @@ export const EmailForm = () => {
   }
 
   return (
-    <form action={formAction} className="grow">
-      <div className="grid sm:grid-cols-2 gap-2 mx-auto">
-        <InputField
-          label="Email"
-          placeholder="barbarossa@piratescove.ca..."
-          name="email"
-          required
-        />
-        <InputField
-          label="Name"
-          placeholder="Barbarossa..."
-          name="name"
-          optional
-        />
+    <form action={formAction} className="flex flex-col grow">
+      <div className="grid sm:grid-cols-2 sm:grid-rows-[auto_auto_1fr] gap-2 mx-auto grow w-full">
+        <div>
+          <InputField
+            label="Email"
+            placeholder="barbarossa@piratescove.ca..."
+            name="email"
+            required
+          />
+        </div>
+        <div>
+          <InputField label="Name" placeholder="Barbarossa..." name="name" />
+        </div>
         <div className="col-span-full">
           <InputField
             label="Subject"
             placeholder="re: Black Pearl..."
             name="subject"
-            optional
           />
         </div>
-        <div className="col-span-full">
+        <div className="col-span-full h-full">
           <InputField
             label="Body"
             name="body"
             placeholder="yarrr ... Jack Sparrow has stolen the BlackPearl!"
-            inputClasses="h-50"
-            type="multiline"
+            multiline
             required
           />
         </div>
@@ -79,7 +75,7 @@ export const EmailForm = () => {
           </p>
         )}
         <Button type="submit" isPending={isPending}>
-          "Send Message"
+          Send Message
         </Button>
       </div>
     </form>

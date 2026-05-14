@@ -4,6 +4,11 @@ export type RGB = { r: number; g: number; b: number };
 
 export const WHITE: RGB = { r: 255, g: 255, b: 255 };
 
+export const rgbToCSS = ({ r, g, b }: RGB): string => `rgb(${r}, ${g}, ${b})`;
+
+export const rgbToHex = ({ r, g, b }: RGB): string =>
+  `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
 
 const lerpColor = (a: RGB, b: RGB, t: number): RGB => {

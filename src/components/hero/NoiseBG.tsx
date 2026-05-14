@@ -2,7 +2,9 @@ import { useState, useRef } from "react";
 
 import type { RGB } from "../../scripts/ColorMap";
 import type { FractalProps } from "../../scripts/noise/Fractal";
-import { NoiseModes, type NoiseProps } from "../../scripts/noise/NoiseUtil";
+import { NoiseMode, type NoiseProps } from "../../scripts/noise/NoiseUtil";
+
+import { NoiseControlPanel } from "./control-panel/NoiseControlPanel";
 
 import { PerlinBG } from "./noise-bgs/PerlinBG";
 import { FractalBG } from "./noise-bgs/FractalBG";
@@ -10,7 +12,7 @@ import { WorleyBG } from "./noise-bgs/WorleyBG";
 
 export type RenderConfig = {
   worleySeeds: number;
-  noiseMode: NoiseModes;
+  noiseMode: NoiseMode;
   fractal: boolean;
   noiseData: NoiseProps;
   fractalData: FractalProps;
@@ -19,7 +21,7 @@ export type RenderConfig = {
 
 const INIT_CONFIG: RenderConfig = {
   worleySeeds: 2,
-  noiseMode: NoiseModes.PERLIN,
+  noiseMode: NoiseMode.PERLIN,
   fractal: true,
   noiseData: {
     seed: crypto.randomUUID(),
@@ -63,7 +65,7 @@ export const NoiseBG = () => {
       color={color}
       fractalData={fractalData}
     />
-  ) : noiseMode === NoiseModes.WORLEY ? (
+  ) : noiseMode === NoiseMode.WORLEY ? (
     <WorleyBG worleySeeds={worleySeeds} noiseData={noiseData} color={color} />
   ) : (
     <PerlinBG noiseData={noiseData} color={color} />
@@ -71,7 +73,10 @@ export const NoiseBG = () => {
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
-      <div className="absolute inset-x-0 top-0 h-screen">{bg}</div>
+      <div className="absolute inset-x-0 top-0 h-screen">
+        {bg}
+        <NoiseControlPanel noiseMode={NoiseMode.WORLEY} config={editConfig} />
+      </div>
     </div>
   );
 };
