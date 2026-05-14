@@ -15,10 +15,7 @@ export const Success = ({ onReset }: { onReset: () => void }) => {
           Thanks for reaching out! I will get back to you shortly.{" "}
         </p>
       </div>
-      <button
-        className="btn btn-outline animate-fade-up"
-        onClick={onReset}
-      >
+      <button className="btn btn-outline animate-fade-up" onClick={onReset}>
         Send another message
       </button>
     </div>

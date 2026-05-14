@@ -1,8 +1,8 @@
-interface GithubIconProps {
+type GithubProps = {
   classes?: string;
-}
+};
 
-export const GithubIcon = ({ classes }: GithubIconProps) => {
+export const Github = ({ classes }: GithubProps) => {
   return (
     <div className={`rounded-full bg-accent !text-white p-1 ${classes}`}>
       <svg

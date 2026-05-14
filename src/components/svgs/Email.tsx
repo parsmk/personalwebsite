@@ -1,8 +1,8 @@
-interface EmailIconProps {
+type EmailProps = {
   classes?: string;
-}
+};
 
-export const EmailIcon = ({ classes }: EmailIconProps) => {
+export const Email = ({ classes }: EmailProps) => {
   return (
     <svg
       viewBox="0 0 24 24"

@@ -1,8 +1,8 @@
-interface LinkedinIconProps {
+type LinkedInProps = {
   classes?: string;
-}
+};
 
-export const LinkedinIcon = ({ classes }: LinkedinIconProps) => {
+export const LinkedIn = ({ classes }: LinkedInProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
