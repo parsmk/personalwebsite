@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { RgbColorPicker } from "react-colorful";
+
 import { rgbToCSS, rgbToHex } from "../../../scripts/ColorMap";
 import { NoiseMode } from "../../../scripts/noise/NoiseUtil";
-import { Chevron } from "../../svgs/Chevron";
 
+import { Chevron } from "../../svgs/Chevron";
 import { Copy } from "../../svgs/Copy";
 import { Dice } from "../../svgs/Dice";
 
@@ -11,11 +13,10 @@ import { IncrementField } from "../../ui-kit/IncrementField";
 import { InputField } from "../../ui-kit/InputField";
 import { NumberField } from "../../ui-kit/NumberField";
 import { SliderField } from "../../ui-kit/SliderField";
+import { Toggle } from "../../ui-kit/Toggle";
 
 import type { RenderConfig } from "../NoiseBG";
 import { NoiseModePill } from "./NoiseModePill";
-import { RgbColorPicker } from "react-colorful";
-import { Toggle } from "../../ui-kit/Toggle";
 
 const Subtitle = ({ children }: { children: React.ReactNode }) => {
   return <h3 className="text-primary font-semibold uppercase">{children}</h3>;
