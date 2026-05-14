@@ -55,7 +55,7 @@ export const FractalBG = ({
       noiseData,
       fractalData,
     });
-  }, [noiseMode, worleySeeds, noiseData]);
+  }, [noiseMode, worleySeeds, noiseData, fractalData]);
 
   if (!noiseState) return null;
 

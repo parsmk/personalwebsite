@@ -1,8 +1,8 @@
-type TRArrowProps = {
+type ArrowProps = {
   className?: string;
 };
 
-export const TRArrow = ({ className }: TRArrowProps) => {
+export const Arrow = ({ className }: ArrowProps) => {
   return (
     <svg
       viewBox="0 0 16 16"

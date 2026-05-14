@@ -75,7 +75,10 @@ export const NoiseBG = () => {
     <div className="sticky top-0 h-0 w-full overflow-visible">
       <div className="absolute inset-x-0 top-0 h-screen">
         {bg}
-        <NoiseControlPanel noiseMode={NoiseMode.WORLEY} config={editConfig} />
+        <NoiseControlPanel
+          config={editConfig}
+          setConfig={(changes) => editPush(changes)}
+        />
       </div>
     </div>
   );

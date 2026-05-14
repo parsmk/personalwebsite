@@ -1,5 +1,3 @@
-import type { ChangeEventHandler } from "react";
-
 export type InputFieldVariants = "primary" | "outline";
 
 type InputFieldProps = {
@@ -7,15 +5,18 @@ type InputFieldProps = {
   label?: string;
   placeholder?: string;
   value?: string;
-  required?: boolean;
+  variant?: InputFieldVariants;
   leftAdornement?: React.ReactNode;
   rightAdornement?: React.ReactNode;
+  required?: boolean;
   multiline?: boolean;
   disabled?: boolean;
-  variant?: InputFieldVariants;
   showOptional?: boolean;
-  onChange?: ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
+  centerText?: boolean;
+  cursor?: "cursor-not-allowed" | "cursor-pointer" | "cursor-default";
+  onChange?: React.ChangeEventHandler<HTMLInputElement & HTMLTextAreaElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement>;
+  onClick?: React.MouseEventHandler;
 };
 
 export const InputField = ({
@@ -30,8 +31,11 @@ export const InputField = ({
   disabled = false,
   variant = "outline",
   showOptional = false,
+  centerText = false,
+  cursor,
   onChange,
   onBlur,
+  onClick,
 }: InputFieldProps) => {
   const onKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement & HTMLTextAreaElement>,
@@ -40,7 +44,12 @@ export const InputField = ({
       e.currentTarget.blur();
     }
   };
-  const inputClasses = "grow focus:outline-none p-2";
+
+  const inputClasses = `
+    grow focus:outline-none p-2 
+    ${centerText ? "text-center" : null}
+    ${disabled ? "pointer-events-none" : ""}
+  `;
 
   const adornmentClasses = "text-xs self-center";
 
@@ -52,7 +61,7 @@ export const InputField = ({
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className={`h-full flex flex-col group ${cursor}`} onClick={onClick}>
       {label && (
         <label className="text-white/50 text-sm" htmlFor={name}>
           {label}

@@ -1,7 +1,7 @@
 ---
 import { techStackMap } from "../../lib/techStackMap";
 import type { Project } from "../../models/Project";
-import { TRArrow } from "../svgs/TRArrow";
+import { Arrow } from "../svgs/Arrow";
 
 type Props = Project;
 
@@ -21,7 +21,7 @@ const { name, url, stack } = Astro.props;
     transition-all
   `}
 >
-  <TRArrow
+  <Arrow
     className={`
       absolute top-5 right-5
       size-5

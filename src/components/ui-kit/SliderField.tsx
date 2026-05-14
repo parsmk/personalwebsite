@@ -11,6 +11,8 @@ type SliderFieldProps = {
   max: number;
   step?: number;
   label?: string;
+  value?: number;
+  onValueChange?: (value: number[]) => void;
 };
 
 export const SliderField = ({
@@ -19,25 +21,28 @@ export const SliderField = ({
   min,
   max,
   step,
+  value,
+  onValueChange,
 }: SliderFieldProps) => {
   return (
     <div className="text-primary font-semibold">
       {label && <p className="text-white/50 text-sm mb-1">{label}</p>}
-      <div className="flex gap-2">
-        {min}
+      <div className="grid grid-cols-[1fr_9fr]">
+        {value}
         <Slider
           name={name}
           min={min}
           max={max}
           step={step}
-          className="relative flex items-center w-[90%] h-5"
+          value={value ? [value] : undefined}
+          onValueChange={onValueChange}
+          className="relative flex items-center w-full h-5"
         >
           <SliderTrack className="relative grow rounded-full bg-accent h-1">
             <SliderRange className="absolute h-full rounded-full bg-primary" />
           </SliderTrack>
           <SliderThumb className="block size-3 rounded-full bg-secondary focus:outline-none cursor-pointer" />
         </Slider>
-        {max}
       </div>
     </div>
   );
