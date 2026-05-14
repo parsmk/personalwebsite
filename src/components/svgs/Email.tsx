@@ -1,13 +1,13 @@
 type EmailProps = {
-  classes?: string;
+  className?: string;
 };
 
-export const Email = ({ classes }: EmailProps) => {
+export const Email = ({ className }: EmailProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${classes} stroke-accent fill-white`}
+      className={`${className} stroke-accent fill-white`}
     >
       <rect
         x="3"

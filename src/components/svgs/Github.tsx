@@ -1,10 +1,10 @@
 type GithubProps = {
-  classes?: string;
+  className?: string;
 };
 
-export const Github = ({ classes }: GithubProps) => {
+export const Github = ({ className }: GithubProps) => {
   return (
-    <div className={`rounded-full bg-accent !text-white p-1 ${classes}`}>
+    <div className={`rounded-full bg-accent !text-white p-1 ${className}`}>
       <svg
         viewBox="0 -0.5 25 25"
         xmlns="http://www.w3.org/2000/svg"

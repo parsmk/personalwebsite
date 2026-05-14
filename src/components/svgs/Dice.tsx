@@ -1,13 +1,13 @@
-interface DiceProps {
-  classes?: string;
-}
+type DiceProps = {
+  className?: string;
+};
 
-export const Dice = ({ classes }: DiceProps) => {
+export const Dice = ({ className }: DiceProps) => {
   return (
     <svg
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
-      className={classes}
+      className={className}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-220.000000, -8079.000000)" fill="currentColor">

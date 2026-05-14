@@ -4,7 +4,7 @@ export const Success = ({ onReset }: { onReset: () => void }) => {
   return (
     <div className="flex flex-col items-center justify-center grow gap-10">
       <div>
-        <Checkmark classes="size-25 mx-auto text-primary" />
+        <Checkmark className="size-25 mx-auto text-primary" />
         <div className="py-2 px-5 mt-5 rounded-4xl bg-secondary/10 text-primary uppercase font-semibold">
           Message Sent
         </div>

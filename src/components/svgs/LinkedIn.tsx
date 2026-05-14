@@ -1,14 +1,14 @@
 type LinkedInProps = {
-  classes?: string;
+  className?: string;
 };
 
-export const LinkedIn = ({ classes }: LinkedInProps) => {
+export const LinkedIn = ({ className }: LinkedInProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
       id="meteor-icon-kit__solid-linkedin"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${classes} fill-accent bg-white rounded-md`}
+      className={`${className} fill-accent bg-white rounded-md`}
     >
       <path
         fillRule="evenodd"

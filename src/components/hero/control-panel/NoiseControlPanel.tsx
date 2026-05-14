@@ -77,10 +77,10 @@ export const NoiseControlPanel = ({
             <InputField label="Seed" name="seed" variant="primary" />
           </div>
           <Button>
-            <Dice classes="size-5" />
+            <Dice className="size-5" />
           </Button>
           <Button>
-            <Copy classes="size-5" />
+            <Copy className="size-5" />
           </Button>
         </div>
         {noiseMode === NoiseMode.WORLEY ? (

@@ -58,7 +58,7 @@ export const Button = ({
       type={type}
       onClick={onClick}
     >
-      {isPending ? <Spinner classes="size-5 text-accent" /> : children}
+      {isPending ? <Spinner className="size-5 text-accent" /> : children}
     </button>
   );
 };

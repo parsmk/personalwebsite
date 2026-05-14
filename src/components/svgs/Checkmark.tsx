@@ -1,15 +1,15 @@
-interface CheckmarkProps {
-  classes?: string;
-}
+type CheckmarkProps = {
+  className?: string;
+};
 
-export const Checkmark = ({ classes }: CheckmarkProps) => {
+export const Checkmark = ({ className }: CheckmarkProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 48 48"
       id="Checkmark-Circle-Outline--Streamline-Ionic-Outline"
-      className={classes}
+      className={className}
     >
       <desc>
         Checkmark Circle Outline Streamline Icon: https://streamlinehq.com
