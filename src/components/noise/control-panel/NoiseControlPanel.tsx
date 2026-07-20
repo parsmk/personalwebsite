@@ -20,7 +20,7 @@ export const NoiseControlPanel = ({
   <NoiseConfigProvider value={{ config, setConfig }}>
     <div
       className="
-        max-w-[33%]
+        max-w-[33%] z-20
         flex flex-col p-5
         absolute top-1/2 -translate-y-1/2 left-3
         bg-accent/75 outline-1 outline-primary/50 rounded-md
