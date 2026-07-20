@@ -14,10 +14,10 @@ import { WORLEY_LOGIC } from "./shaders/worley";
 
 const INIT_CONFIG: NoiseConfig = {
   worleySeeds: 2,
-  noiseMode: NoiseMode.PERLIN,
+  noiseMode: NoiseMode.WORLEY,
   fractal: true,
   noiseData: {
-    seed: Math.random() * 9999 + 1,
+    seed: Math.random() * 99999 + 1,
     offset: [0, 0],
     scale: 250,
     size: [window.innerWidth, window.innerHeight],

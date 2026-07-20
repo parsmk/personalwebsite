@@ -160,7 +160,7 @@ export const NoiseControlPanel = ({
               setConfig({
                 noiseData: {
                   ...config.noiseData,
-                  seed: Math.random() * 9999 + 1,
+                  seed: Math.random() * 99999 + 1,
                 },
               })
             }
