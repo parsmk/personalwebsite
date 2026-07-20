@@ -1,30 +1,23 @@
-import { useState, useRef } from "react";
-
-import type { RGB } from "../../scripts/ColorMap";
-import type { FractalProps } from "../../scripts/noise/Fractal";
-import { NoiseMode, type NoiseProps } from "../../scripts/noise/NoiseUtil";
+import { useState, useRef, useEffect } from "react";
 
 import { NoiseControlPanel } from "./control-panel/NoiseControlPanel";
 
-import { PerlinBG } from "./noise-bgs/PerlinBG";
-import { FractalBG } from "./noise-bgs/FractalBG";
-import { WorleyBG } from "./noise-bgs/WorleyBG";
+import {
+  createProgram,
+  NoiseMode,
+  populateUniforms,
+  type NoiseConfig,
+} from "./shaders/utils";
+import { VERT_SHADER, NOISE_SHADER } from "./shaders/programs";
+import { PERLIN_LOGIC } from "./shaders/perlin";
+import { WORLEY_LOGIC } from "./shaders/worley";
 
-export type RenderConfig = {
-  worleySeeds: number;
-  noiseMode: NoiseMode;
-  fractal: boolean;
-  noiseData: NoiseProps;
-  fractalData: FractalProps;
-  color: RGB;
-};
-
-const INIT_CONFIG: RenderConfig = {
+const INIT_CONFIG: NoiseConfig = {
   worleySeeds: 2,
   noiseMode: NoiseMode.PERLIN,
   fractal: true,
   noiseData: {
-    seed: crypto.randomUUID(),
+    seed: Math.random() * 9999 + 1,
     offset: [0, 0],
     scale: 250,
     size: [window.innerWidth, window.innerHeight],
@@ -34,50 +27,66 @@ const INIT_CONFIG: RenderConfig = {
     persistence: 0.5,
     octaves: 4,
   },
-  color: { r: 4, g: 52, b: 44 },
+  colorMin: { r: 255, g: 255, b: 255 },
+  colorMax: { r: 4, g: 52, b: 44 },
 };
 
 export const NoiseBG = () => {
-  const [editConfig, setEditConfig] = useState<RenderConfig>(INIT_CONFIG);
-  const [renderConfig, setRenderConfig] = useState<RenderConfig>(INIT_CONFIG);
-  const pendingRef = useRef<Partial<RenderConfig>>({});
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [config, setConfig] = useState<NoiseConfig>(INIT_CONFIG);
+  const glRef = useRef<WebGL2RenderingContext | null>(null);
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const noiseFns = useRef<{
+    perlin: WebGLProgram;
+    worley: WebGLProgram;
+  } | null>(null);
 
-  const editPush = (changes: Partial<RenderConfig>) => {
-    setEditConfig((prev) => ({ ...prev, ...changes }));
-    Object.assign(pendingRef.current, changes);
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      const flushed = pendingRef.current;
-      pendingRef.current = {};
-      setRenderConfig((prev) => ({ ...prev, ...flushed }));
-    }, 100);
-  };
+  useEffect(() => {
+    const gl = canvas.current?.getContext("webgl2");
 
-  const { fractal, fractalData, worleySeeds, noiseData, noiseMode, color } =
-    renderConfig;
+    if (!gl) return;
 
-  const bg = fractal ? (
-    <FractalBG
-      worleySeeds={worleySeeds}
-      noiseData={noiseData}
-      noiseMode={noiseMode}
-      color={color}
-      fractalData={fractalData}
-    />
-  ) : noiseMode === NoiseMode.WORLEY ? (
-    <WorleyBG worleySeeds={worleySeeds} noiseData={noiseData} color={color} />
-  ) : (
-    <PerlinBG noiseData={noiseData} color={color} />
-  );
+    glRef.current = gl;
+
+    const perlin = createProgram(gl, VERT_SHADER, NOISE_SHADER(PERLIN_LOGIC));
+    const worley = createProgram(gl, VERT_SHADER, NOISE_SHADER(WORLEY_LOGIC));
+
+    noiseFns.current = { perlin, worley };
+
+    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+
+    return () => {
+      gl.deleteProgram(perlin);
+      gl.deleteProgram(worley);
+      noiseFns.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!glRef.current || !noiseFns.current) return;
+    const gl = glRef.current;
+    const { perlin, worley } = noiseFns.current;
+
+    const program = config.noiseMode === NoiseMode.PERLIN ? perlin : worley;
+    gl.useProgram(program);
+    populateUniforms(gl, program, config);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }, [config]);
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
       <div className="absolute inset-x-0 top-0 h-screen">
-        {bg}
+        <canvas
+          ref={canvas}
+          width={config.noiseData.size[0]}
+          height={config.noiseData.size[1]}
+          className="absolute inset-0 h-full w-full -z-1"
+          style={{ imageRendering: "pixelated" }}
+        />
         <NoiseControlPanel
-          config={editConfig}
-          setConfig={(changes) => editPush(changes)}
+          config={config}
+          setConfig={(changes) =>
+            setConfig((prev) => ({ ...prev, ...changes }))
+          }
         />
       </div>
     </div>

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { RgbColorPicker } from "react-colorful";
-
-import { rgbToCSS, rgbToHex } from "../../../scripts/ColorMap";
-import { NoiseMode } from "../../../scripts/noise/NoiseUtil";
+import { RgbColorPicker, type RgbColor } from "react-colorful";
 
 import { Chevron } from "../../svgs/Chevron";
 import { Copy } from "../../svgs/Copy";
@@ -15,20 +12,12 @@ import { NumberField } from "../../ui-kit/NumberField";
 import { SliderField } from "../../ui-kit/SliderField";
 import { Toggle } from "../../ui-kit/Toggle";
 
-import type { RenderConfig } from "../NoiseBG";
 import { NoiseModePill } from "./NoiseModePill";
-
-const Subtitle = ({ children }: { children: React.ReactNode }) => {
-  return <h3 className="text-primary font-semibold uppercase">{children}</h3>;
-};
-
-const Break = () => {
-  return <hr className="w-full mx-auto border-t-1 border-secondary my-5" />;
-};
+import { NoiseMode, type NoiseConfig } from "../shaders/utils";
 
 type NoiseControlPanelProps = {
-  config: RenderConfig;
-  setConfig: (config: Partial<RenderConfig>) => void;
+  config: NoiseConfig;
+  setConfig: (config: Partial<NoiseConfig>) => void;
 };
 
 export const NoiseControlPanel = ({
@@ -36,6 +25,19 @@ export const NoiseControlPanel = ({
   setConfig,
 }: NoiseControlPanelProps) => {
   const [colorPicker, setColorPicker] = useState<boolean>(false);
+
+  const rgbToCSS = ({ r, g, b }: RgbColor): string => `rgb(${r}, ${g}, ${b})`;
+
+  const rgbToHex = ({ r, g, b }: RgbColor): string =>
+    `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+
+  const Subtitle = ({ children }: { children: React.ReactNode }) => {
+    return <h3 className="text-primary font-semibold uppercase">{children}</h3>;
+  };
+
+  const Break = () => {
+    return <hr className="w-full mx-auto border-t-1 border-secondary my-5" />;
+  };
 
   return (
     <div
@@ -137,7 +139,7 @@ export const NoiseControlPanel = ({
         <Subtitle>Generation</Subtitle>
         <div className="flex gap-1.5 items-end">
           <div className="grow min-w-0">
-            <InputField
+            <NumberField
               label="Seed"
               name="seed"
               variant="primary"
@@ -146,7 +148,7 @@ export const NoiseControlPanel = ({
                 setConfig({
                   noiseData: {
                     ...config.noiseData,
-                    seed: e.currentTarget.value,
+                    seed: parseInt(e.currentTarget.value),
                   },
                 })
               }
@@ -156,7 +158,10 @@ export const NoiseControlPanel = ({
             type="button"
             onClick={() =>
               setConfig({
-                noiseData: { ...config.noiseData, seed: crypto.randomUUID() },
+                noiseData: {
+                  ...config.noiseData,
+                  seed: Math.random() * 9999 + 1,
+                },
               })
             }
           >
@@ -164,7 +169,7 @@ export const NoiseControlPanel = ({
           </Button>
           <Button
             onClick={() => {
-              navigator.clipboard.writeText(config.noiseData.seed);
+              navigator.clipboard.writeText(config.noiseData.seed.toString());
             }}
           >
             <Copy className="size-5" />
@@ -187,10 +192,10 @@ export const NoiseControlPanel = ({
             variant="primary"
             disabled
             cursor="cursor-pointer"
-            value={rgbToHex(config.color)}
+            value={rgbToHex(config.colorMax)}
             leftAdornement={
               <div
-                style={{ backgroundColor: rgbToCSS(config.color) }}
+                style={{ backgroundColor: rgbToCSS(config.colorMax) }}
                 className="size-5 rounded-md outline-1 outline-white"
               />
             }
@@ -213,8 +218,8 @@ export const NoiseControlPanel = ({
           >
             <RgbColorPicker
               className="grow m-5"
-              color={config.color}
-              onChange={(color) => setConfig({ color: color })}
+              color={config.colorMax}
+              onChange={(color) => setConfig({ colorMax: color })}
             />
           </div>
         </div>

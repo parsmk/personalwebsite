@@ -1,16 +1,12 @@
-import type { MouseEventHandler } from "react";
-
-type NoiseModePillsProps = {
-  label: string;
-  active?: boolean;
-  onClick?: MouseEventHandler;
-};
-
 export const NoiseModePill = ({
   label,
   active,
   onClick,
-}: NoiseModePillsProps) => {
+}: {
+  label: string;
+  active?: boolean;
+  onClick?: React.MouseEventHandler;
+}) => {
   return (
     <div
       className={`
