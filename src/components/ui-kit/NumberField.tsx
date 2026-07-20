@@ -10,6 +10,7 @@ type NumberFieldProps = {
   variant?: InputFieldVariants;
   leftAdornement?: React.ReactNode;
   rightAdornement?: React.ReactNode;
+  decimalPlaces?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -23,6 +24,7 @@ export const NumberField = ({
   rightAdornement,
   disabled = false,
   variant,
+  decimalPlaces,
   onChange,
 }: NumberFieldProps) => {
   return (
@@ -30,7 +32,7 @@ export const NumberField = ({
       name={name}
       label={label}
       placeholder={placeholder}
-      value={value?.toString()}
+      value={value?.toFixed(decimalPlaces ?? 0)}
       required={required}
       leftAdornement={leftAdornement}
       rightAdornement={rightAdornement}
