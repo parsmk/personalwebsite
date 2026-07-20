@@ -1,11 +1,13 @@
 ---
-import RootLayout from "../layouts/RootLayout.astro";
-import Navbar from "../components/navigation/Navbar.astro";
-import ProjectCard from "../components/projects/ProjectCard.astro";
 import type { MarkdownInstance } from "astro";
+
+import RootLayout from "../layouts/RootLayout.astro";
+
 import type { Project } from "../models/Project";
 import { EmailCard } from "../components/email-form/EmailCard";
-import { Hero } from "../components/hero/Hero";
+import { NoiseBG } from "../components/noise/NoiseBG";
+import Navbar from "../components/navigation/Navbar.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -13,8 +15,24 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 ---
 
 <RootLayout pageTitle="PMK Development">
-  <div class="flex h-[200vh]">
-    <Hero client:only="react" />
+  <div class="flex h-[200vh] flex-col w-full overflow-clip">
+    <NoiseBG client:only="react" />
+    <div class="flex flex-row items-center justify-center h-[50%] gap-2">
+      <div
+        class="flex flex-col justify-center items-end rounded-tl-full size-100 z-10"
+      >
+        <div class="w-[80%]">
+          <h1 class="font-bold text-5xl text-white">PMK Development</h1>
+          <h2 class="text-2xl text-white/70 my-2">
+            Software Engineer, Full-Stack Developer
+          </h2>
+        </div>
+      </div>
+      <img src="hero-img.png" class="h-175 z-10" />
+    </div>
+    <div class="flex items-center justify-center h-[50%]">
+      <p>For a taste of what I can do try the noise editor!</p>
+    </div>
   </div>
   <Navbar />
   <div class="flex min-h-screen py-20 bg-accent">
