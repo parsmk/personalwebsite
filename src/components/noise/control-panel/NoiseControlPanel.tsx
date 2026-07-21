@@ -36,7 +36,7 @@ export const NoiseControlPanel = ({
         <div className="flex gap-2 items-center">
           <div
             className={`
-            flex items-center justify-center size-10 rotate-270
+            flex items-center justify-center size-10
             bg-primary/75 group hover:bg-primary
             rounded-md border-2 border-secondary/25 hover:border-secondary/50
             cursor-pointer
@@ -46,9 +46,15 @@ export const NoiseControlPanel = ({
           >
             <Arrow
               className={`
-              fill-accent/75 size-7.5 
-              group-hover:fill-accent transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5
-            `}
+                fill-accent/75 size-7.5
+                group-hover:fill-accent 
+                ${
+                  visible
+                    ? "-rotate-90 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5"
+                    : "rotate-90 group-hover:translate-y-0.5 group-hover:translate-x-0.5"
+                }
+                transition duration-300 
+              `}
             />
           </div>
           <div>
@@ -64,14 +70,16 @@ export const NoiseControlPanel = ({
             ${visible ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
           `}
         >
-          <div className="overflow-hidden min-h-0 flex flex-col p-1">
-            <NoiseModePills />
-            <NoiseBreak />
-            <NoiseTransformSection />
-            <NoiseBreak />
-            <NoiseGenSection />
-            <NoiseBreak />
-            <NoiseFractalSection />
+          <div className="overflow-hidden min-h-0 flex flex-col">
+            <div className="p-1">
+              <NoiseModePills />
+              <NoiseBreak />
+              <NoiseTransformSection />
+              <NoiseBreak />
+              <NoiseGenSection />
+              <NoiseBreak />
+              <NoiseFractalSection />
+            </div>
           </div>
         </div>
       </div>
