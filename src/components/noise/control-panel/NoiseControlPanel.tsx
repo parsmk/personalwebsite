@@ -64,7 +64,7 @@ export const NoiseControlPanel = ({
             ${visible ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
           `}
         >
-          <div className="overflow-hidden min-h-0 flex flex-col">
+          <div className="overflow-hidden min-h-0 flex flex-col p-1">
             <NoiseModePills />
             <NoiseBreak />
             <NoiseTransformSection />
