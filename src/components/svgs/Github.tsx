@@ -1,10 +1,11 @@
-type GithubProps = {
-  className?: string;
-};
+import type { IconProps } from "./IconProps";
 
-export const Github = ({ className }: GithubProps) => {
+export const Github = ({ className, onClick }: IconProps) => {
   return (
-    <div className={`rounded-full bg-accent !text-white p-1 ${className}`}>
+    <div
+      className={`rounded-full bg-accent !text-white p-1 ${className}`}
+      onClick={onClick}
+    >
       <svg
         viewBox="0 -0.5 25 25"
         xmlns="http://www.w3.org/2000/svg"

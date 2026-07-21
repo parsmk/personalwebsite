@@ -1,9 +1,6 @@
-type ChevronProps = {
-  className?: string;
-  onClick?: React.MouseEventHandler;
-};
+import type { IconProps } from "./IconProps";
 
-export const Chevron = ({ className, onClick }: ChevronProps) => {
+export const Chevron = ({ className, onClick }: IconProps) => {
   return (
     <svg
       viewBox="0 0 24 24"

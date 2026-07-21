@@ -1,13 +1,12 @@
-type EmailProps = {
-  className?: string;
-};
+import type { IconProps } from "./IconProps";
 
-export const Email = ({ className }: EmailProps) => {
+export const Email = ({ className, onClick }: IconProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className={`${className} stroke-accent fill-white`}
+      onClick={onClick}
     >
       <rect
         x="3"

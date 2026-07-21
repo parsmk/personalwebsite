@@ -1,8 +1,6 @@
-type CheckmarkProps = {
-  className?: string;
-};
+import type { IconProps } from "./IconProps";
 
-export const Checkmark = ({ className }: CheckmarkProps) => {
+export const Checkmark = ({ className, onClick }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,6 +8,7 @@ export const Checkmark = ({ className }: CheckmarkProps) => {
       viewBox="0 0 48 48"
       id="Checkmark-Circle-Outline--Streamline-Ionic-Outline"
       className={className}
+      onClick={onClick}
     >
       <desc>
         Checkmark Circle Outline Streamline Icon: https://streamlinehq.com

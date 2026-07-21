@@ -1,14 +1,13 @@
-type LinkedInProps = {
-  className?: string;
-};
+import type { IconProps } from "./IconProps";
 
-export const LinkedIn = ({ className }: LinkedInProps) => {
+export const LinkedIn = ({ className, onClick }: IconProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
       id="meteor-icon-kit__solid-linkedin"
       xmlns="http://www.w3.org/2000/svg"
       className={`${className} fill-accent bg-white rounded-md`}
+      onClick={onClick}
     >
       <path
         fillRule="evenodd"

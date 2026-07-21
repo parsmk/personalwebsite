@@ -1,9 +1,6 @@
-type MinusProps = {
-  className?: string;
-  onClick?: React.MouseEventHandler;
-};
+import type { IconProps } from "./IconProps";
 
-export const Minus = ({ className, onClick }: MinusProps) => {
+export const Minus = ({ className, onClick }: IconProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
