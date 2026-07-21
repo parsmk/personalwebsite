@@ -16,8 +16,13 @@ export const NoiseFractalSection = () => {
           setActive={(b) => setConfig({ fractal: b })}
         />
       </div>
-      {config.fractal && (
-        <div className="flex gap-1.5 items-end">
+      <div
+        className={`
+          grid overflow-hidden 
+          transition-all duration-500 ${config.fractal ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+        `}
+      >
+        <div className="flex gap-1.5 min-h-0 items-end">
           <div className="grow min-w-0">
             <SliderField
               label="Octaves"
@@ -60,7 +65,7 @@ export const NoiseFractalSection = () => {
             />
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
