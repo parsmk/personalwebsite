@@ -13,11 +13,13 @@ import { Arrow } from "../../svgs/Arrow";
 
 type NoiseControlPanelProps = {
   config: NoiseConfig;
+  showPanel: boolean;
   setConfig: (config: Partial<NoiseConfig>) => void;
 };
 
 export const NoiseControlPanel = ({
   config,
+  showPanel,
   setConfig,
 }: NoiseControlPanelProps) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -31,6 +33,7 @@ export const NoiseControlPanel = ({
           absolute top-1/2 -translate-y-1/2 left-3
           bg-accent/75 outline-1 outline-primary/50 rounded-md
           transition-all duration-300
+          ${showPanel ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}
       >
         <div className="flex gap-2 items-center">
