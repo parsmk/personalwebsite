@@ -97,19 +97,21 @@ export const NoiseGenSection = () => {
         />
         <div
           className={`
-              absolute z-10 w-full flex
+              absolute z-10 grid w-full
               top-full left-0
               overflow-hidden transition-all duration-500
               bg-accent/75 rounded-md
               outline-primary/50
-              ${colorPicker ? "h-60 outline-1" : "h-0"}
+              ${colorPicker ? "grid-rows-[1fr] outline-1" : "grid-rows-[0fr]"}
             `}
         >
-          <RgbColorPicker
-            className="grow m-5"
-            color={config.colorMax}
-            onChange={(color) => setConfig({ colorMax: color })}
-          />
+          <div className="min-h-0 overflow-hidden flex">
+            <RgbColorPicker
+              className="m-5 grow"
+              color={config.colorMax}
+              onChange={(color) => setConfig({ colorMax: color })}
+            />
+          </div>
         </div>
       </div>
     </div>
