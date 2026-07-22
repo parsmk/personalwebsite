@@ -5,8 +5,8 @@ import { Email } from "../svgs/Email";
 import NavItem from "./NavItem.astro";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: "#hero", label: "Home", target: "_self" },
+  { href: "#projects", label: "Projects", target: "_self" },
 ];
 
 const socialLinks = [
@@ -29,7 +29,13 @@ const socialLinks = [
 <nav class="flex sticky bg-primary items-center top-0 h-15 w-vw z-1">
   <div class="grow h-full">
     <ul class="flex h-full">
-      {navLinks.map((link) => <NavItem href={link.href}>{link.label}</NavItem>)}
+      {
+        navLinks.map((link) => (
+          <NavItem href={link.href} target={link.target}>
+            {link.label}
+          </NavItem>
+        ))
+      }
     </ul>
   </div>
   <div class="h-full">

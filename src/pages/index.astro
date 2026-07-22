@@ -15,7 +15,7 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 ---
 
 <RootLayout pageTitle="PMK Development">
-  <div class="flex h-[200vh] flex-col w-full overflow-clip">
+  <div id="hero" class="flex h-[200vh] flex-col w-full overflow-clip">
     <NoiseBG client:only="react" />
     <div class="flex flex-row items-center justify-center h-[50%] gap-2">
       <div class="flex flex-col justify-center items-end size-100 z-10">
@@ -33,7 +33,7 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <Navbar />
-  <div class="flex min-h-screen py-20 bg-accent">
+  <div id="projects" class="flex min-h-screen py-20 bg-accent">
     <div
       class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto my-auto w-[75%]"
     >
