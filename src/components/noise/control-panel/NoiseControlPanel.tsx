@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { NoiseTransformSection } from "./NoiseTransformSection";
 import { NoiseBreak } from "./NoiseBreak";
@@ -13,16 +13,28 @@ import { Arrow } from "../../svgs/Arrow";
 
 type NoiseControlPanelProps = {
   config: NoiseConfig;
-  showPanel: boolean;
   setConfig: (config: Partial<NoiseConfig>) => void;
 };
 
 export const NoiseControlPanel = ({
   config,
-  showPanel,
   setConfig,
 }: NoiseControlPanelProps) => {
+  const [expandPanel, setExpandPanel] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const target = document.getElementById("noise-prompt");
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.65 },
+    );
+    observer.observe(target);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <NoiseConfigProvider value={{ config, setConfig }}>
@@ -33,7 +45,7 @@ export const NoiseControlPanel = ({
           absolute top-1/2 -translate-y-1/2 left-3
           bg-accent/75 outline-1 outline-primary/50 rounded-md
           transition-all duration-300
-          ${showPanel ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+          ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}
       >
         <div className="flex gap-2 items-center">
@@ -45,14 +57,14 @@ export const NoiseControlPanel = ({
             cursor-pointer
             transition duration-300
           `}
-            onClick={() => setVisible(!visible)}
+            onClick={() => setExpandPanel(!expandPanel)}
           >
             <Arrow
               className={`
                 fill-accent/75 size-7.5
                 group-hover:fill-accent 
                 ${
-                  visible
+                  expandPanel
                     ? "-rotate-90 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5"
                     : "rotate-90 group-hover:translate-y-0.5 group-hover:translate-x-0.5"
                 }
@@ -66,11 +78,23 @@ export const NoiseControlPanel = ({
               {`${config.noiseMode.charAt(0).toUpperCase() + config.noiseMode.slice(1)} · ${config.noiseData.size[0]} x ${config.noiseData.size[1]}`}
             </p>
           </div>
+
+          <div
+            className={`
+              absolute top-1/2 -translate-y-1/2 left-full ml-2 
+              text-nowrap text-white
+              ${visible ? "animate-slide" : null}
+              ${expandPanel ? "opacity-0" : "opacity-100"}
+              transition-all duration-500
+            `}
+          >
+            {"< The background is live! Have a play"}
+          </div>
         </div>
         <div
           className={`
             grid transition-all duration-500 ease-in-out
-            ${visible ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
+            ${expandPanel ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
           `}
         >
           <div className="overflow-hidden min-h-0 flex flex-col">

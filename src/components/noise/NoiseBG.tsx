@@ -40,8 +40,6 @@ export const NoiseBG = () => {
     worley: WebGLProgram;
   } | null>(null);
 
-  const [showPanel, setShowPanel] = useState(false);
-
   useEffect(() => {
     const gl = canvas.current?.getContext("webgl2");
 
@@ -61,19 +59,6 @@ export const NoiseBG = () => {
       gl.deleteProgram(worley);
       noiseFns.current = null;
     };
-  }, []);
-
-  useEffect(() => {
-    const target = document.getElementById("noise-prompt");
-    if (!target) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowPanel(entry.isIntersecting),
-      { threshold: 0.65 },
-    );
-    observer.observe(target);
-
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -99,7 +84,6 @@ export const NoiseBG = () => {
         />
         <NoiseControlPanel
           config={config}
-          showPanel={showPanel}
           setConfig={(changes) =>
             setConfig((prev) => ({ ...prev, ...changes }))
           }
