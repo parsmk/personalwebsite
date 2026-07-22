@@ -8,6 +8,8 @@ export type Email = {
   body: string;
 };
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   const resend = new Resend(import.meta.env.RESEND_KEY);
   const res: Email = await request.json();
