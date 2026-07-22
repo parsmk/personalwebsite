@@ -36,7 +36,17 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <Navbar />
-  <div id="projects" class="flex min-h-screen py-20 bg-accent">
+  <div
+    id="projects"
+    class="flex flex-col min-h-screen py-20 bg-accent text-white"
+  >
+    <div class="pb-7.5 text-center">
+      <h2 class="text-5xl mb-2">My projects</h2>
+      <h3 class="text-2xl font-thin">
+        Have a look at the products I've worked on!
+      </h3>
+      <hr class="w-[75%] mx-auto border-t-1 border-secondary my-5" />
+    </div>
     <div
       class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto my-auto w-[75%]"
     >
@@ -52,9 +62,12 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <div
-    class="flex flex-col lg:flex-row min-h-[100vh] gap-5 p-5 bg-white items-center justify-center w-full"
+    class="flex flex-col lg:flex-row h-[100vh] gap-5 p-5 bg-white items-center justify-center w-full"
   >
-    <img src="" alt="imageofsomething" class="sm:w-[30%]" />
+    <div
+      class="bg-[url('/headshot.jpg')] bg-cover bg-center w-[30%] h-[70%] rounded-3xl"
+    >
+    </div>
     <EmailCard client:load />
   </div>
   <div
