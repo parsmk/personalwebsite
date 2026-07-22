@@ -4,11 +4,12 @@ import type { MarkdownInstance } from "astro";
 import RootLayout from "../layouts/RootLayout.astro";
 
 import type { Project } from "../models/Project";
+
 import { EmailCard } from "../components/email-form/EmailCard";
 import { NoiseBG } from "../components/noise/NoiseBG";
 import Navbar from "../components/navigation/Navbar.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
-import { navLinks } from "../lib/links";
+
 import { socialLinks } from "../lib/links";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {

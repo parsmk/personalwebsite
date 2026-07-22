@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { NoiseTransformSection } from "./NoiseTransformSection";
 import { NoiseBreak } from "./NoiseBreak";
@@ -22,6 +22,7 @@ export const NoiseControlPanel = ({
 }: NoiseControlPanelProps) => {
   const [expandPanel, setExpandPanel] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
+  const hasInteracted = useRef<boolean>(false);
 
   useEffect(() => {
     const target = document.getElementById("noise-prompt");
@@ -57,7 +58,10 @@ export const NoiseControlPanel = ({
             cursor-pointer
             transition duration-300
           `}
-            onClick={() => setExpandPanel(!expandPanel)}
+            onClick={() => {
+              setExpandPanel(!expandPanel);
+              if (!hasInteracted.current) hasInteracted.current = true;
+            }}
           >
             <Arrow
               className={`
@@ -84,7 +88,7 @@ export const NoiseControlPanel = ({
               absolute top-1/2 -translate-y-1/2 left-full ml-2 
               text-nowrap text-white
               ${visible ? "animate-slide" : null}
-              ${expandPanel ? "opacity-0" : "opacity-100"}
+              ${hasInteracted.current ? "opacity-0" : "opacity-100"}
               transition-all duration-500
             `}
           >
