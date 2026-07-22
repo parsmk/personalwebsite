@@ -1,38 +1,15 @@
 ---
-import { LinkedIn } from "../svgs/LinkedIn";
-import { Github } from "../svgs/Github";
-import { Email } from "../svgs/Email";
+import { navLinks, socialLinks } from "../../lib/links";
 import NavItem from "./NavItem.astro";
-
-const navLinks = [
-  { href: "#hero", label: "Home", target: "_self" },
-  { href: "#projects", label: "Projects", target: "_self" },
-];
-
-const socialLinks = [
-  {
-    href: "#emailCard",
-    Icon: Email,
-    target: "_self",
-  },
-  {
-    href: "https://github.com/parsmk",
-    Icon: Github,
-  },
-  {
-    href: "https://www.linkedin.com/in/parsa-mohtashami-4a4509192/",
-    Icon: LinkedIn,
-  },
-];
 ---
 
 <nav class="flex sticky bg-primary items-center top-0 h-15 w-vw z-1">
   <div class="grow h-full">
     <ul class="flex h-full">
       {
-        navLinks.map((link) => (
+        Object.entries(navLinks).map(([label, link]) => (
           <NavItem href={link.href} target={link.target}>
-            {link.label}
+            {label.charAt(0).toUpperCase() + label.slice(1)}
           </NavItem>
         ))
       }
@@ -41,7 +18,7 @@ const socialLinks = [
   <div class="h-full">
     <ul class="flex h-full">
       {
-        socialLinks.map((link) => {
+        Object.values(socialLinks).map((link) => {
           const Icon = link.Icon;
           return (
             <NavItem href={link.href} target={link.target}>

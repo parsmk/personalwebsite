@@ -8,6 +8,8 @@ import { EmailCard } from "../components/email-form/EmailCard";
 import { NoiseBG } from "../components/noise/NoiseBG";
 import Navbar from "../components/navigation/Navbar.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
+import { navLinks } from "../lib/links";
+import { socialLinks } from "../lib/links";
 
 const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   eager: true,
@@ -53,5 +55,23 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
   >
     <img src="" alt="imageofsomething" class="sm:w-[30%]" />
     <EmailCard client:load />
+  </div>
+  <div
+    class="flex flex-col gap-5 border-t-2 border-accent items-center justify-center px-5 pt-5 pb-1 bg-primary text-white"
+  >
+    <div class="flex gap-5">
+      {
+        Object.entries(socialLinks).map(([label, link]) => {
+          const Icon = link.Icon;
+          if (label === "email") return;
+          return (
+            <a href={link.href} target={link.target}>
+              <Icon className="size-10" />
+            </a>
+          );
+        })
+      }
+    </div>
+    <div>{`© ${new Date().getFullYear()} Parsa Mohtashami`}</div>
   </div>
 </RootLayout>
