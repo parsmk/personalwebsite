@@ -11,19 +11,17 @@ const navLinks = [
 
 const socialLinks = [
   {
-    href: "/contact",
+    href: "#emailCard",
     Icon: Email,
-    iconClass: "size-10",
+    target: "_self",
   },
   {
     href: "https://github.com/parsmk",
     Icon: Github,
-    iconClass: "size-10",
   },
   {
     href: "https://www.linkedin.com/in/parsa-mohtashami-4a4509192/",
     Icon: LinkedIn,
-    iconClass: "size-10",
   },
 ];
 ---
@@ -40,8 +38,8 @@ const socialLinks = [
         socialLinks.map((link) => {
           const Icon = link.Icon;
           return (
-            <NavItem href={link.href}>
-              {<Icon className={link.iconClass} />}
+            <NavItem href={link.href} target={link.target}>
+              {<Icon className="size-10" />}
             </NavItem>
           );
         })

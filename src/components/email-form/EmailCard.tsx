@@ -2,7 +2,10 @@ import { EmailForm } from "./EmailForm";
 
 export const EmailCard = () => {
   return (
-    <div className="flex flex-col sm:h-170 w-200 outline-2 rounded-3xl outline-accent overflow-hidden">
+    <div
+      id="emailCard"
+      className="flex flex-col sm:h-170 w-200 outline-2 rounded-3xl outline-accent overflow-hidden"
+    >
       <div className="bg-primary py-6 px-10 text-white">
         <p className="uppercase">get in touch</p>
         <p className="text-3xl">

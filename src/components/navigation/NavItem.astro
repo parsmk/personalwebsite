@@ -1,9 +1,10 @@
 ---
 interface Props {
   href: string;
+  target?: string;
 }
 
-const { href } = Astro.props;
+const { href, target } = Astro.props;
 ---
 
 <li>
@@ -13,6 +14,7 @@ const { href } = Astro.props;
       hover:bg-secondary transition-all duration-300
     `}
     href={href}
+    target={target ?? "_blank"}
   >
     <slot />
   </a>
