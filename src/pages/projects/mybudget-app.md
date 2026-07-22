@@ -1,8 +1,7 @@
 ---
 name: "mybudget-app"
-url: "https://pmkdevelopment.com"
+url: ""
 stack: ["ts", "next", "express", "tailwind", "reactQuery", "postgreSQL"]
-githubAPIPath: "parsmk/mybudget-frontend"
 githubURL: "https://github.com/parsmk/mybudget-frontend"
 order: 2
 ---

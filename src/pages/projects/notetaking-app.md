@@ -1,9 +1,8 @@
 ---
 name: "NoteTakingApp"
-url: "https://pmkdevelopment.ca"
+url: ""
 stack: ["js", "express", "tailwind", "mongodb"]
-githubAPIPath: ""
-githubURL: ""
+githubURL: "https://github.com/parsmk/NoteTakingApp"
 order: 2
 ---
 

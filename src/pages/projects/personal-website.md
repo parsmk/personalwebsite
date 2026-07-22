@@ -2,8 +2,7 @@
 name: "personalwebsite"
 url: "https://pmkdevelopment.ca"
 stack: ["ts", "tailwind", "react", "astro"]
-githubAPIPath: ""
-githubURL: ""
+githubURL: "https://github.com/parsmk/personalwebsite"
 order: 2
 ---
 

@@ -1,9 +1,9 @@
 ---
 name: "KindledRealms"
-url: "https://pmkdevelopment.ca"
+url: ""
 stack: ["c3", "unity", "hlsl", "yaml"]
-githubAPIPath: "parsmk/NoteTakingApp"
 githubURL: ""
+developing: true
 order: 2
 ---
 

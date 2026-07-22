@@ -1,8 +1,7 @@
 ---
 name: "pokedex"
-url: ""
+url: "https://pokedex-kwpe.onrender.com"
 stack: ["ts", "react", "tailwind", "reactQuery"]
-githubAPIPath: "parsmk/pokedex"
 githubURL: "https://github.com/parsmk/pokedex"
 order: 3
 ---

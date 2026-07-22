@@ -1,8 +1,8 @@
 export type Project = {
   name: string;
-  url: string;
   stack: string[];
-  githubAPIPath: string;
+  url: string;
   githubURL: string;
+  developing: boolean;
   order: number;
 };

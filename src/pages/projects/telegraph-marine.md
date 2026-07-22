@@ -2,7 +2,6 @@
 name: "telegraphmarine"
 url: "https://telegraphharbour.com"
 stack: ["ts", "python", "next", "django", "tailwind"]
-githubAPIPath: "nordmichael/telegraphmarine"
 githubURL: ""
 order: 1
 ---

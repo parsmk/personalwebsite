@@ -1,40 +1,31 @@
 ---
 import { techStackMap } from "../../lib/techStackMap";
 import type { Project } from "../../models/Project";
-import { Arrow } from "../svgs/Arrow";
+import { Clock } from "../svgs/Clock";
+import { Code } from "../svgs/Code";
+import { Padlock } from "../svgs/Padlock";
+import AvailableLink from "./AvailableLink.astro";
+import UnavailableLink from "./UnavailableLink.astro";
 
 type Props = Project;
 
-const { name, url, stack } = Astro.props;
+const { name, url, stack, githubURL, developing } = Astro.props;
 ---
 
-<a
-  href={url}
-  target="_blank"
+<div
   class={`
-    group relative flex flex-col
-    w-full gap-3 p-5 rounded-xl
+    relative flex flex-col w-full
+    gap-3 p-5 rounded-xl
     outline-2 outline-primary/50
-    hover:outline-primary hover:shadow-lg hover:shadow-primary/50
-    hover:-translate-y-1
+    hover:outline-primary hover:shadow-lg hover:shadow-primary/50 hover:-translate-y-1 transition-all
     bg-primary/50 text-white
-    transition-all
   `}
 >
-  <Arrow
-    className={`
-      absolute top-5 right-5
-      size-5
-      text-primary
-      group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent
-      transition-all duration-300
-    `}
-  />
-  <h3 class="font-bold text-2xl transition-all duration-300">{name}</h3>
+  <h3 class="font-bold text-2xl">{name}</h3>
   <div class="font-medium grow">
     <slot />
   </div>
-  <div class="border-t-2 border-primary p-1 pt-3 transition-all duration-300">
+  <div>
     <div class="flex flex-wrap gap-2">
       {
         stack &&
@@ -47,11 +38,51 @@ const { name, url, stack } = Astro.props;
                 class="flex items-center gap-1 rounded-lg p-1.5"
               >
                 <img src={t.path} class="size-5 shrink-0" alt={t.name} />
-                <p>{t.name}</p>
+                <p class="cursor-default">{t.name}</p>
               </div>
             );
           })
       }
     </div>
   </div>
-</a>
+
+  <div
+    class="grid grid-cols-[1fr_1fr] divide-x divide-secondary/35 w-full rounded-lg outline-1 outline-secondary/35 overflow-hidden"
+  >
+    {
+      developing ? (
+        <UnavailableLink developing>
+          <span class="size-2 border-1 border-t-transparent animate-spin rounded-full [animation-duration:5s]" />
+          In development
+        </UnavailableLink>
+      ) : (
+        <>
+          {url ? (
+            <AvailableLink href={url}>
+              <div class="text-green-300 animate-pulse group-hover:!animate-none [animation-duration:3.5s]">
+                <span class="inline-block size-2 rounded-full bg-green-300" />
+                Live
+              </div>
+            </AvailableLink>
+          ) : (
+            <UnavailableLink>
+              <Clock className="size-5" />
+              Demo coming soon
+            </UnavailableLink>
+          )}{" "}
+          {githubURL ? (
+            <AvailableLink href={githubURL}>
+              <Code className="size-5" />
+              Code
+            </AvailableLink>
+          ) : (
+            <UnavailableLink>
+              <Padlock className="size-5" />
+              Client Project
+            </UnavailableLink>
+          )}
+        </>
+      )
+    }
+  </div>
+</div>
