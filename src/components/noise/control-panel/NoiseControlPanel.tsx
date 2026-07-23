@@ -35,7 +35,7 @@ export const NoiseControlPanel = ({
           setExpandPanel(false);
         }
       },
-      { threshold: 1 },
+      { threshold: 0.9 },
     );
     observer.observe(target);
 
@@ -46,9 +46,9 @@ export const NoiseControlPanel = ({
     <NoiseConfigProvider value={{ config, setConfig }}>
       <div
         className={`
-          w-[90%] 2xl:w-[50%] z-20
+          w-[90%] lg:w-[35%] 2xl:w-[20%] z-20
           flex flex-col p-5
-          absolute top-2 left-1/2 -translate-x-1/2
+          absolute top-2 left-1/2 -translate-x-1/2 translate-y-0 lg:top-1/2 lg:-translate-y-1/2 lg:left-3 lg:translate-x-0
           bg-accent/75 outline-1 outline-primary/50 rounded-md
           transition-all duration-300
           ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
