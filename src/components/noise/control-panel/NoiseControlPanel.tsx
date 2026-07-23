@@ -35,7 +35,7 @@ export const NoiseControlPanel = ({
           setExpandPanel(false);
         }
       },
-      { threshold: 0.9 },
+      { threshold: 1 },
     );
     observer.observe(target);
 
