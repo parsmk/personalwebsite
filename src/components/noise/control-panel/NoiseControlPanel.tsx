@@ -82,18 +82,6 @@ export const NoiseControlPanel = ({
               {`${config.noiseMode.charAt(0).toUpperCase() + config.noiseMode.slice(1)} · ${config.noiseData.size[0]} x ${config.noiseData.size[1]}`}
             </p>
           </div>
-
-          <div
-            className={`
-              absolute top-1/2 -translate-y-1/2 left-full ml-2 
-              text-nowrap text-white
-              ${visible ? "animate-slide" : null}
-              ${hasInteracted.current ? "opacity-0" : "opacity-100"}
-              transition-all duration-500
-            `}
-          >
-            {"< The background is live! Have a play"}
-          </div>
         </div>
         <div
           className={`

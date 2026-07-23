@@ -3,7 +3,7 @@ import { navLinks, socialLinks } from "../../lib/links";
 import NavItem from "./NavItem.astro";
 ---
 
-<nav class="flex sticky bg-primary items-center top-0 h-15 w-vw z-1">
+<nav class="flex sticky bg-primary items-center top-0 h-15 z-1">
   <div class="grow h-full">
     <ul class="flex h-full">
       {
@@ -22,7 +22,7 @@ import NavItem from "./NavItem.astro";
           const Icon = link.Icon;
           return (
             <NavItem href={link.href} target={link.target}>
-              {<Icon className="size-10" />}
+              {<Icon className="sm:size-10" />}
             </NavItem>
           );
         })
