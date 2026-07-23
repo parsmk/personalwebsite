@@ -56,8 +56,6 @@ export const NoiseBG = () => {
 
     noiseFns.current = { perlin, worley };
 
-    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-
     return () => {
       gl.deleteProgram(perlin);
       gl.deleteProgram(worley);
@@ -71,6 +69,7 @@ export const NoiseBG = () => {
     const { perlin, worley } = noiseFns.current;
 
     const program = config.noiseMode === NoiseMode.PERLIN ? perlin : worley;
+    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     gl.useProgram(program);
     populateUniforms(gl, program, config);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
