@@ -20,19 +20,27 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
 <RootLayout pageTitle="PMK Development">
   <div id="hero" class="flex h-[200vh] flex-col w-full overflow-clip">
     <NoiseBG client:only="react" />
-    <div class="flex flex-row items-center justify-center h-[50%] gap-2">
-      <div class="flex flex-col justify-center items-end size-100 z-10">
-        <div class="w-[80%]">
-          <h1 class="font-bold text-5xl text-white">PMK Development</h1>
-          <h2 class="text-2xl text-white/70 my-2">
+    <div
+      class="flex sm:flex-row flex-col items-center justify-center h-[50%] gap-2"
+    >
+      <div class="flex flex-col justify-center p-5 sm:items-end z-10">
+        <div>
+          <h1
+            class="font-bold sm:text-5xl text-4xl text-center md:text-left text-white"
+          >
+            PMK Development
+          </h1>
+          <h2
+            class="sm:text-2xl text-center md:text-left text-xl text-white/70 my-2"
+          >
             Software Engineer, Full-Stack Developer
           </h2>
         </div>
       </div>
-      <img src="hero-img.png" class="h-175 z-10" />
+      <img src="hero-img.png" class="h-[50%] z-10" />
     </div>
-    <div class="flex items-center justify-center h-[50%] w-0 mx-auto">
-      <div id="noise-prompt"></div>
+    <div class="flex items-center justify-center h-[50%] w-full mx-auto">
+      <div id="noise-prompt" class="h-1/2 w-1/2 -z-1"></div>
     </div>
   </div>
   <Navbar />
@@ -40,15 +48,15 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     id="projects"
     class="flex flex-col min-h-screen py-20 bg-accent text-white"
   >
-    <div class="pb-7.5 text-center">
-      <h2 class="text-5xl mb-2">My projects</h2>
-      <h3 class="text-2xl font-thin">
+    <div class="pb-7.5 px-2 text-center">
+      <h2 class="sm:text-5xl text-4xl mb-2">My projects</h2>
+      <h3 class="sm:text-2xl text-xl font-thin">
         Have a look at the products I've worked on!
       </h3>
       <hr class="w-[75%] mx-auto border-t-1 border-secondary my-5" />
     </div>
     <div
-      class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto my-auto w-[75%]"
+      class="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mx-auto my-auto w-[75%]"
     >
       {
         Object.values(modules)
@@ -62,10 +70,10 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <div
-    class="flex flex-col lg:flex-row h-[100vh] gap-5 p-5 bg-white items-center justify-center w-full"
+    class="grid lg:grid-cols-2 lg:h-screen gap-5 sm:p-20 py-20 px-5 bg-white items-center justify-center w-full"
   >
     <div
-      class="bg-[url('/headshot.jpg')] bg-cover bg-center w-[30%] h-[70%] rounded-3xl"
+      class="bg-[url('/headshot.jpg')] h-full bg-cover bg-no-repeat bg-right rounded-3xl sm:block hidden"
     >
     </div>
     <EmailCard client:load />

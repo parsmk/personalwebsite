@@ -24,7 +24,7 @@ export const NoiseGenSection = () => {
     `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col w-full gap-2">
       <Subtitle>Generation</Subtitle>
       <div className="flex gap-1.5 items-end">
         <div className="grow min-w-0">

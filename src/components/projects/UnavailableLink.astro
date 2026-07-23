@@ -10,7 +10,7 @@ const { developing } = Astro.props;
   class={`
     ${developing ? "col-span-full" : null} 
     flex items-center justify-center gap-1 bg-accent/30 text-white/40 p-3
-    cursor-default
+    cursor-default sm:text-md text-xs
   `}
 >
   <slot />

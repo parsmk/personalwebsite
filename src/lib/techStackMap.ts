@@ -45,7 +45,7 @@ export const techStackMap: Record<string, TechStack> = {
   },
   django: {
     path: PATH("django.svg"),
-    name: "Django REST Framework",
+    name: "Django",
     color: "#092E20",
   },
   shopware: {

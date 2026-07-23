@@ -35,9 +35,9 @@ const { name, url, stack, githubURL, developing } = Astro.props;
             return (
               <div
                 style={`background-color: ${t.color}50; outline: 1px solid ${t.color}90`}
-                class="flex items-center gap-1 rounded-lg p-1.5"
+                class="flex items-center gap-1 rounded-lg p-1.5 sm:text-md text-xs"
               >
-                <img src={t.path} class="size-5 shrink-0" alt={t.name} />
+                <img src={t.path} class="sm:size-5 size-3" alt={t.name} />
                 <p class="cursor-default">{t.name}</p>
               </div>
             );
@@ -47,12 +47,12 @@ const { name, url, stack, githubURL, developing } = Astro.props;
   </div>
 
   <div
-    class="grid grid-cols-[1fr_1fr] divide-x divide-secondary/35 w-full rounded-lg outline-1 outline-secondary/35 overflow-hidden"
+    class="grid grid-cols-[1fr_1fr] divide-x divide-secondary/35 w-full rounded-lg outline-1 outline-secondary/35"
   >
     {
       developing ? (
         <UnavailableLink developing>
-          <span class="size-2 border-1 border-t-transparent animate-spin rounded-full [animation-duration:5s]" />
+          <span class="hidden sm:block size-3 border-1 border-t-transparent animate-spin rounded-full [animation-duration:5s]" />
           In development
         </UnavailableLink>
       ) : (
@@ -60,24 +60,24 @@ const { name, url, stack, githubURL, developing } = Astro.props;
           {url ? (
             <AvailableLink href={url}>
               <div class="flex items-center justify-center text-green-300 animate-pulse group-hover:!animate-none [animation-duration:3.5s]">
-                <span class="inline-block size-2 rounded-full bg-green-300 mr-1" />
+                <span class="hidden sm:inline-block size-3 rounded-full bg-green-300 mr-1" />
                 Live
               </div>
             </AvailableLink>
           ) : (
             <UnavailableLink>
-              <Clock className="size-5" />
-              Demo coming soon
+              <Clock className="hidden sm:block size-4" />
+              Coming soon
             </UnavailableLink>
           )}{" "}
           {githubURL ? (
             <AvailableLink href={githubURL}>
-              <Code className="size-5" />
+              <Code className="hidden sm:block size-4" />
               Code
             </AvailableLink>
           ) : (
             <UnavailableLink>
-              <Padlock className="size-5" />
+              <Padlock className="hidden sm:block size-4" />
               Client Project
             </UnavailableLink>
           )}

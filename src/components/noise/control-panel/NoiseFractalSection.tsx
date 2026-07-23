@@ -8,7 +8,7 @@ export const NoiseFractalSection = () => {
   const { config, setConfig } = useNoiseConfig();
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col w-full">
       <div className="flex justify-between items-center">
         <Subtitle>Fractal</Subtitle>
         <Toggle
@@ -22,7 +22,7 @@ export const NoiseFractalSection = () => {
           transition-all duration-500 ${config.fractal ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
         `}
       >
-        <div className="flex gap-1.5 min-h-0 items-end">
+        <div className="flex min-h-0 items-end">
           <div className="grow min-w-0">
             <SliderField
               label="Octaves"

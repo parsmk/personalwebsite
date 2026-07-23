@@ -26,7 +26,7 @@ export const SliderField = ({
 }: SliderFieldProps) => {
   return (
     <div className="text-primary font-semibold">
-      {label && <p className="text-white/50 text-sm mb-1">{label}</p>}
+      {label && <p className="text-white/50 text-sm">{label}</p>}
       <div className="grid grid-cols-[1fr_9fr]">
         {value}
         <Slider
