@@ -29,7 +29,7 @@ const { name, url, stack, githubURL, developing } = Astro.props;
     <div class="flex flex-wrap gap-2">
       {
         stack &&
-          stack.map((s) => {
+          stack.map((s: string) => {
             const t = techStackMap[s];
 
             return (
@@ -59,8 +59,8 @@ const { name, url, stack, githubURL, developing } = Astro.props;
         <>
           {url ? (
             <AvailableLink href={url}>
-              <div class="text-green-300 animate-pulse group-hover:!animate-none [animation-duration:3.5s]">
-                <span class="inline-block size-2 rounded-full bg-green-300" />
+              <div class="flex items-center justify-center text-green-300 animate-pulse group-hover:!animate-none [animation-duration:3.5s]">
+                <span class="inline-block size-2 rounded-full bg-green-300 mr-1" />
                 Live
               </div>
             </AvailableLink>
