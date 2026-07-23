@@ -36,7 +36,7 @@ export const SliderField = ({
           step={step}
           value={value ? [value] : undefined}
           onValueChange={onValueChange}
-          className="relative flex items-center w-full h-5"
+          className="relative flex items-center w-full h-5 touch-none select-none"
         >
           <SliderTrack className="relative grow rounded-full bg-accent h-1">
             <SliderRange className="absolute h-full rounded-full bg-primary" />
