@@ -46,7 +46,7 @@ export const InputField = ({
   };
 
   const inputClasses = `
-    grow focus:outline-none p-2 
+    grow min-w-0 focus:outline-none p-2
     ${centerText ? "text-center" : null}
     ${disabled ? "pointer-events-none" : ""}
   `;
