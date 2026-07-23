@@ -12,6 +12,8 @@ import { VERT_SHADER, NOISE_SHADER } from "./shaders/programs";
 import { PERLIN_LOGIC } from "./shaders/perlin";
 import { WORLEY_LOGIC } from "./shaders/worley";
 
+import { useWindowSize } from "../../hooks/useWindowSize";
+
 const INIT_CONFIG: NoiseConfig = {
   worleySeeds: 2,
   noiseMode: NoiseMode.WORLEY,
@@ -39,6 +41,8 @@ export const NoiseBG = () => {
     perlin: WebGLProgram;
     worley: WebGLProgram;
   } | null>(null);
+
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
     const gl = canvas.current?.getContext("webgl2");
@@ -71,6 +75,13 @@ export const NoiseBG = () => {
     populateUniforms(gl, program, config);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }, [config]);
+
+  useEffect(() => {
+    setConfig((prev) => ({
+      ...prev,
+      noiseData: { ...prev.noiseData, size: [width, height] },
+    }));
+  }, [width, height]);
 
   return (
     <div className="sticky top-0 h-0 w-full overflow-visible">
