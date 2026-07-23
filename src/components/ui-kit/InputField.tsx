@@ -93,7 +93,7 @@ export const InputField = ({
             onChange={onChange}
             onBlur={onBlur}
             onKeyDown={onKeyDown}
-            className={inputClasses}
+            className={`${inputClasses} h-40 lg:h-50 xl:h-60`}
             disabled={disabled}
           />
         ) : (

@@ -70,10 +70,10 @@ const modules = import.meta.glob<MarkdownInstance<Project>>("./projects/*.md", {
     </div>
   </div>
   <div
-    class="flex flex-col lg:flex-row h-[100vh] gap-5 p-5 bg-white items-center justify-center w-full"
+    class="grid sm:grid-cols-2 lg:h-screen gap-5 sm:p-20 py-20 px-5 bg-white items-center justify-center w-full"
   >
     <div
-      class="bg-[url('/headshot.jpg')] bg-cover bg-center w-[30%] h-[70%] rounded-3xl"
+      class="bg-[url('/headshot.jpg')] w-full h-full bg-cover bg-no-repeat bg-right rounded-3xl sm:block hidden"
     >
     </div>
     <EmailCard client:load />
