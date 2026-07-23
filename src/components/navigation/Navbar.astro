@@ -1,5 +1,6 @@
 ---
 import { navLinks, socialLinks } from "../../lib/links";
+import { NavDropdown } from "./NavDropdown";
 import NavItem from "./NavItem.astro";
 ---
 
@@ -15,7 +16,7 @@ import NavItem from "./NavItem.astro";
       }
     </ul>
   </div>
-  <div class="h-full">
+  <div class="h-full sm:block hidden">
     <ul class="flex h-full">
       {
         Object.values(socialLinks).map((link) => {
@@ -29,4 +30,5 @@ import NavItem from "./NavItem.astro";
       }
     </ul>
   </div>
+  <NavDropdown client:only="react" />
 </nav>
