@@ -31,7 +31,7 @@ export const NoiseControlPanel = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         setVisible(entry.isIntersecting);
-        if (expandPanel && !entry.isIntersecting) {
+        if (!entry.isIntersecting) {
           setExpandPanel(false);
         }
       },
