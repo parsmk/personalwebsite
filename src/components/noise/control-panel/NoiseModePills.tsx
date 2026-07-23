@@ -6,7 +6,7 @@ export const NoiseModePills = () => {
   const { config, setConfig } = useNoiseConfig();
 
   return (
-    <div className="gap-2 text-white/50 flex mt-5">
+    <div className="text-white/50 flex mt-5">
       <div className="bg-primary/25 gap-1 p-1.5 rounded-lg flex grow overflow-hidden justify-center">
         <NoiseModePill
           label="Perlin"

@@ -29,8 +29,13 @@ export const NoiseControlPanel = ({
     if (!target) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.65 },
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (expandPanel && !entry.isIntersecting) {
+          setExpandPanel(false);
+        }
+      },
+      { threshold: 0.9 },
     );
     observer.observe(target);
 
@@ -41,9 +46,9 @@ export const NoiseControlPanel = ({
     <NoiseConfigProvider value={{ config, setConfig }}>
       <div
         className={`
-          max-w-[25%] z-20
+          w-[90%] 2xl:w-[50%] z-20
           flex flex-col p-5
-          absolute top-1/2 -translate-y-1/2 left-3
+          absolute top-2 left-1/2 -translate-x-1/2
           bg-accent/75 outline-1 outline-primary/50 rounded-md
           transition-all duration-300
           ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
@@ -89,7 +94,7 @@ export const NoiseControlPanel = ({
             ${expandPanel ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
           `}
         >
-          <div className="overflow-hidden min-h-0 flex flex-col">
+          <div className="overflow-hidden min-h-0 flex flex-col z-20">
             <div className="p-1">
               <NoiseModePills />
               <NoiseBreak />

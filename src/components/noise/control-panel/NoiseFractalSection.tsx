@@ -8,7 +8,7 @@ export const NoiseFractalSection = () => {
   const { config, setConfig } = useNoiseConfig();
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col w-full">
       <div className="flex justify-between items-center">
         <Subtitle>Fractal</Subtitle>
         <Toggle

@@ -7,7 +7,7 @@ import { useNoiseConfig } from "./NoiseConfigContext";
 export const NoiseTransformSection = () => {
   const { config, setConfig } = useNoiseConfig();
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
       <Subtitle>Transform</Subtitle>
       <div>
         <p className="text-white/50 text-sm">Offset</p>
