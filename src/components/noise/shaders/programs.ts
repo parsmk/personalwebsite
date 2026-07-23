@@ -25,6 +25,7 @@ const NOISE_HELPERS = `
 export const NOISE_SHADER = (injection: string) =>
   `#version 300 es
     precision highp float;
+    precision highp int;
 
     out vec4 outColor;
 
