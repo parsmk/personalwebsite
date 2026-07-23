@@ -61,7 +61,10 @@ export const InputField = ({
   };
 
   return (
-    <div className={`h-full flex flex-col group ${cursor}`} onClick={onClick}>
+    <div
+      className={`h-full flex flex-col gap-1 group ${cursor ?? ""}`}
+      onClick={onClick}
+    >
       {label && (
         <label className="text-white/50 text-sm" htmlFor={name}>
           {label}
@@ -71,7 +74,7 @@ export const InputField = ({
         </label>
       )}
       <div
-        className={`${variantClasses[variant]} flex outline-1 my-1 grow rounded-lg transition-all duration-300`}
+        className={`${variantClasses[variant]} flex outline-1 grow rounded-lg transition-all duration-300`}
       >
         {leftAdornement && (
           <div className={`${adornmentClasses} ml-3 mr-1`}>

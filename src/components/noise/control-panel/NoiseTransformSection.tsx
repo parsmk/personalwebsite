@@ -7,10 +7,10 @@ import { useNoiseConfig } from "./NoiseConfigContext";
 export const NoiseTransformSection = () => {
   const { config, setConfig } = useNoiseConfig();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <Subtitle>Transform</Subtitle>
       <div>
-        <p className="text-white/50 text-sm">Offset</p>
+        <p className="text-white/50 text-sm mb-1">Offset</p>
         <div className="grid grid-cols-2 gap-2">
           <NumberField
             leftAdornement={"X"}

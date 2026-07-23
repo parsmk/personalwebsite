@@ -22,7 +22,7 @@ export const NoiseFractalSection = () => {
           transition-all duration-500 ${config.fractal ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
         `}
       >
-        <div className="flex gap-1.5 min-h-0 items-end">
+        <div className="flex min-h-0 items-end">
           <div className="grow min-w-0">
             <SliderField
               label="Octaves"
