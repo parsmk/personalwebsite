@@ -107,7 +107,7 @@ export const NoiseGenSection = () => {
         >
           <div className="min-h-0 overflow-hidden flex">
             <RgbColorPicker
-              className="m-5 grow"
+              className="m-5 grow !h-35"
               color={config.colorMax}
               onChange={(color) => setConfig({ colorMax: color })}
             />

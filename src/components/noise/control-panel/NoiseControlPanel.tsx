@@ -10,6 +10,12 @@ import { NoiseModePills } from "./NoiseModePills";
 import type { NoiseConfig } from "../shaders/utils";
 
 import { Arrow } from "../../svgs/Arrow";
+import {
+  ScrollArea,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from "@radix-ui/react-scroll-area";
 
 type NoiseControlPanelProps = {
   config: NoiseConfig;
@@ -44,9 +50,9 @@ export const NoiseControlPanel = ({
 
   return (
     <NoiseConfigProvider value={{ config, setConfig }}>
-      <div
+      <ScrollArea
         className={`
-          w-[90%] lg:w-[35%] 2xl:w-[20%] z-20
+          w-[90%] lg:w-[35%] 2xl:w-[20%] z-20 max-h-[90%] overflow-hidden touch-none select-none
           flex flex-col p-5
           absolute top-2 left-1/2 -translate-x-1/2 translate-y-0 lg:top-1/2 lg:-translate-y-1/2 lg:left-3 lg:translate-x-0
           bg-accent/75 outline-1 outline-primary/50 rounded-md
@@ -54,22 +60,23 @@ export const NoiseControlPanel = ({
           ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}
       >
-        <div className="flex gap-2 items-center">
-          <div
-            className={`
+        <ScrollAreaViewport className="w-full h-full">
+          <div className="flex gap-2 items-center">
+            <div
+              className={`
             flex items-center justify-center size-10
             bg-primary/75 group hover:bg-primary
             rounded-md border-2 border-secondary/25 hover:border-secondary/50
             cursor-pointer
             transition duration-300
           `}
-            onClick={() => {
-              setExpandPanel(!expandPanel);
-              if (!hasInteracted.current) hasInteracted.current = true;
-            }}
-          >
-            <Arrow
-              className={`
+              onClick={() => {
+                setExpandPanel(!expandPanel);
+                if (!hasInteracted.current) hasInteracted.current = true;
+              }}
+            >
+              <Arrow
+                className={`
                 fill-accent/75 size-7.5
                 group-hover:fill-accent 
                 ${
@@ -79,34 +86,41 @@ export const NoiseControlPanel = ({
                 }
                 transition duration-300 
               `}
-            />
+              />
+            </div>
+            <div>
+              <h3 className="text-md text-white">Noise Generator</h3>
+              <p className="text-primary">
+                {`${config.noiseMode.charAt(0).toUpperCase() + config.noiseMode.slice(1)} · ${config.noiseData.size[0]} x ${config.noiseData.size[1]}`}
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-md text-white">Noise Generator</h3>
-            <p className="text-primary">
-              {`${config.noiseMode.charAt(0).toUpperCase() + config.noiseMode.slice(1)} · ${config.noiseData.size[0]} x ${config.noiseData.size[1]}`}
-            </p>
-          </div>
-        </div>
-        <div
-          className={`
+          <div
+            className={`
             grid transition-all duration-500 ease-in-out
             ${expandPanel ? "grid-rows-[1fr] grid-cols-[1fr]" : "grid-rows-[0fr] grid-cols-[0fr]"}
           `}
-        >
-          <div className="overflow-hidden min-h-0 flex flex-col z-20">
-            <div className="p-1">
-              <NoiseModePills />
-              <NoiseBreak />
-              <NoiseTransformSection />
-              <NoiseBreak />
-              <NoiseGenSection />
-              <NoiseBreak />
-              <NoiseFractalSection />
+          >
+            <div className="overflow-hidden min-h-0 flex flex-col z-20">
+              <div className="p-1">
+                <NoiseModePills />
+                <NoiseBreak />
+                <NoiseTransformSection />
+                <NoiseBreak />
+                <NoiseGenSection />
+                <NoiseBreak />
+                <NoiseFractalSection />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </ScrollAreaViewport>
+        <ScrollAreaScrollbar
+          orientation="vertical"
+          className="p-0.5 flex bg-primary"
+        >
+          <ScrollAreaThumb className="relative bg-accent p-0.5" />
+        </ScrollAreaScrollbar>
+      </ScrollArea>
     </NoiseConfigProvider>
   );
 };
